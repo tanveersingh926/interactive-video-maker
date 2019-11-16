@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+@import "./variables/colors";
+@import "./bootstrap-override.scss";
+
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+@import "../components/header/header.scss";
+@import "../components/menuBar/menuBar.scss";
+
+.max-width {
+  max-width: 1280px;
+}

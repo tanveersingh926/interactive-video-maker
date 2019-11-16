@@ -1,0 +1,22 @@
+.btn-primary {
+  color: #fff;
+  background-color: $primaryBg;
+  border-color: $primaryBg;
+  border-radius: 0;
+  &:hover,
+  &:active {
+    background-color: $primaryText;
+    border-color: $primaryText;
+  }
+}
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: $primaryText;
+  border-color: $primaryText;
+}
+.card,
+.form-control {
+  border-radius: 0;
+}
