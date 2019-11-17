@@ -1,5 +1,5 @@
 import React from "react";
-import { FormGroup, Label, Input, FormText } from "reactstrap";
+import { FormGroup, Label, Input, FormText, FormFeedback } from "reactstrap";
 import PropTypes from "prop-types";
 
 const InputField = ({
@@ -7,17 +7,34 @@ const InputField = ({
   labelText,
   fieldId,
   fieldName,
-  placeholder
+  placeholder,
+  input,
+  meta,
+  disabled = false,
+  type = "input",
+  plaintext,
+  readOnly
 }) => {
+  const conditionProps = {
+    valid: !!(meta.dirty && meta.valid && !meta.error),
+    invalid: !!(meta.invalid && meta.touched && meta.error)
+  };
+
   return (
     <FormGroup>
-      <Label for={fieldId}>{labelText}</Label>
+      {labelText && <Label for={fieldId}>{labelText}</Label>}
       <Input
-        type="text"
+        readOnly={readOnly}
         name={fieldName}
         id={fieldId}
         placeholder={placeholder}
+        disabled={disabled}
+        plaintext={plaintext}
+        {...input}
+        {...conditionProps}
+        type={type}
       />
+      {meta.error && meta.touched && <FormFeedback>{meta.error}</FormFeedback>}
       {fieldText && (
         <FormText>
           {fieldText.map((text, index) => (
@@ -34,9 +51,13 @@ const InputField = ({
 
 InputField.propTypes = {
   fieldText: PropTypes.arrayOf(PropTypes.string),
-  labelText: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  labelText: PropTypes.string,
   fieldId: PropTypes.string.isRequired,
-  fieldName: PropTypes.string.isRequired
+  fieldName: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
+  plaintext: PropTypes.bool,
+  readOnly: PropTypes.bool
 };
 
 export default InputField;

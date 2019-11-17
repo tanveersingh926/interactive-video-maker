@@ -2,16 +2,20 @@ import React from "react";
 import { FormGroup, Label, Input } from "reactstrap";
 import PropTypes from "prop-types";
 
-const CheckField = ({ type = "checkbox", fieldName, fieldId, labelText }) => {
-  return (
-    <FormGroup check>
-      <Input type={type} name={fieldName} id={fieldId} />
-      <Label for={fieldId} check>
-        {labelText}
-      </Label>
-    </FormGroup>
-  );
-};
+const CheckField = ({
+  type = "checkbox",
+  fieldName,
+  fieldId,
+  labelText,
+  className
+}) => (
+  <FormGroup check className={className}>
+    <Input type={type} name={fieldName} id={fieldId} />
+    <Label for={fieldId} check>
+      {labelText}
+    </Label>
+  </FormGroup>
+);
 
 CheckField.propTypes = {
   type: PropTypes.string,

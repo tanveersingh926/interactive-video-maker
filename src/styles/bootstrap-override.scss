@@ -17,6 +17,9 @@
   border-color: $primaryText;
 }
 .card,
-.form-control {
+.form-control,
+.custom-select,
+.btn-secondary,
+.modal-content {
   border-radius: 0;
 }

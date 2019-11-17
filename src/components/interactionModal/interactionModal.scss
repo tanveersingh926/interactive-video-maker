@@ -1,0 +1,9 @@
+.response--container {
+  padding: 10px 15px;
+  margin: 0 -15px 10px -15px;
+  border: 0;
+  background: $whiteText;
+  &.response-odd-color {
+    background: $lightGray;
+  }
+}

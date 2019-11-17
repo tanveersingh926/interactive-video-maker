@@ -4,9 +4,9 @@ import App from "./App";
 
 const mapStateToProps = state => {
   return {
-    existingTokens: state.subscribedPlan.existingTokens,
-    newTokens: state.subscribedPlan.newTokens,
-    subscriptionExpiry: state.subscribedPlan.subscriptionExpiry
+    existingTokens: state.videoConfiguration.existingTokens,
+    newTokens: state.videoConfiguration.newTokens,
+    subscriptionExpiry: state.videoConfiguration.subscriptionExpiry
   };
 };
 

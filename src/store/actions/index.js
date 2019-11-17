@@ -1,7 +1,7 @@
 import {
-  updateExistingTokens,
-  updateNewTokens,
-  dummyAction
-} from "./subscribedPlan";
+  dummyAction,
+  updateVideoDetails,
+  updateVideoDuration
+} from "./videoConfigurationActions";
 
-export { updateExistingTokens, updateNewTokens, dummyAction };
+export { dummyAction, updateVideoDetails, updateVideoDuration };

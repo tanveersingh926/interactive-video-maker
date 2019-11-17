@@ -1,19 +1,19 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import createSagaMiddleware from "redux-saga";
-import subscribedPlanSaga from "./sagas/subscribedPlanSaga";
-import { subscribedPlanReducer } from "./reducers/";
+import videoConfigurationSaga from "./sagas/videoConfigurationSaga";
+import { videoConfigurationReducer } from "./reducers";
 
 const sagaMiddleware = createSagaMiddleware();
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
   combineReducers({
-    subscribedPlan: subscribedPlanReducer
+    videoConfiguration: videoConfigurationReducer
   }),
   composeEnhancer(applyMiddleware(sagaMiddleware))
 );
 
-const rootSagas = [subscribedPlanSaga];
+const rootSagas = [videoConfigurationSaga];
 
 rootSagas.forEach(sagaMiddleware.run);
 

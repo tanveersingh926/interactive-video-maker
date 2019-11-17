@@ -8,7 +8,8 @@ import {
 } from "react-router-dom";
 import HomePage from "../components/homePage/HomePage";
 import MyVideos from "../components/myVideos/MyVideos";
-import AddNewVideo from "../components/addNewVideo/AddNewVideo";
+import AddNewVideo from "../components/addNewVideo/AddNewVideoConnected";
+import ConfigureVideo from "../components/configureVideo/ConfigureVideoConnected";
 
 const AppRouter = ({ children }) => {
   return (
@@ -23,6 +24,9 @@ const AppRouter = ({ children }) => {
               </Route>
               <Route path="/add-new-video">
                 <AddNewVideo />
+              </Route>
+              <Route path="/video/:id">
+                <ConfigureVideo />
               </Route>
               <Route path="/my-videos">
                 <MyVideos />

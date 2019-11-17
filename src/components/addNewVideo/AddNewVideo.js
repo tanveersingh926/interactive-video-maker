@@ -1,84 +1,98 @@
 import React from "react";
-import { Col, Row, Button, Form, FormGroup, Label, Input } from "reactstrap";
-import InputField from "../formFields/InputField";
-import CheckField from "../formFields/checkField";
+import { Col, Row, Button, Form as BootstrapForm } from "reactstrap";
+import uuid from "uuid";
+import { useHistory } from "react-router-dom";
+import { VIDEO_SOURCE_YOUTUBE } from "../../constants/index";
+import {
+  required,
+  urlIsValid,
+  composeValidators
+} from "../../utilities/validation";
+import { Form } from "react-final-form";
+import CustomField from "../formFields/FieldWrapper";
 
-const AddNewVideo = () => {
+const AddNewVideo = ({ updateVideoDetails, ...props }) => {
+  let videoId = null;
+  const history = useHistory();
+  const createUrlSearchParam = url => {
+    const paramString = url.split("?").pop();
+    const searchParams = new URLSearchParams(paramString);
+    if (searchParams.has("v")) {
+      return searchParams.get("v");
+    }
+  };
+
+  const onSubmit = values => {
+    const {
+      youtubeVideoUrl: videoUrl,
+      title: videoTitle,
+      shortDescription
+    } = values;
+    try {
+      const uuidForVideo = uuid();
+      videoId = createUrlSearchParam(videoUrl);
+      console.log({ videoId, uuidForVideo });
+      updateVideoDetails({
+        videoId,
+        videoUrl,
+        videoTitle,
+        shortDescription,
+        videoSource: VIDEO_SOURCE_YOUTUBE,
+        id: uuidForVideo
+      });
+      history.push(`/video/${uuid}`);
+    } catch (error) {
+      console.log(error);
+      alert("An error happened please try after sometime");
+    }
+  };
+
   return (
     <div className="mt-4">
-      <h1 className="mb-5">Select Video</h1>
+      <h1 className="mb-5">Import Video</h1>
       <Row>
-        <Col md="6">
-          <Form>
-            <Row form>
-              <Col md={6}>
-                <InputField
-                  labelText="Title"
-                  fieldId="videoTitle"
-                  fieldName="title"
-                  placeholder="Enter Video Title"
+        <Col md={6} sm={9} xs={12}>
+          <Form
+            onSubmit={onSubmit}
+            render={({ handleSubmit }) => (
+              <BootstrapForm onSubmit={handleSubmit}>
+                <Row form>
+                  <Col md={6}>
+                    <CustomField
+                      name="title"
+                      validate={required}
+                      labelText="Title"
+                      fieldId="videoTitle"
+                      placeholder="Enter Video Title"
+                    />
+                  </Col>
+                  <Col md={6}>
+                    <CustomField
+                      name="shortDescription"
+                      labelText="Short Description"
+                      fieldId="videoShortDescription"
+                      placeholder="Enter Short Description"
+                    />
+                  </Col>
+                </Row>
+                <CustomField
+                  name="youtubeVideoUrl"
+                  validate={composeValidators(required, urlIsValid)}
+                  fieldText={[
+                    `Enter the link to your video. Once we import it, you can start adding interactions.`,
+                    `e.g. https://www.youtube.com/watch?v=DgfSDm65d`
+                  ]}
+                  labelText="Video URL"
+                  fieldId="videoUrl"
+                  placeholder="Enter youtube video link"
                 />
-              </Col>
-              <Col md={6}>
-                <InputField
-                  labelText="Short Description"
-                  fieldId="videoShortDescription"
-                  fieldName="shortDescription"
-                  placeholder="Enter Short Description"
-                />
-              </Col>
-            </Row>
-            <InputField
-              fieldText={[
-                `Enter the link to your video. Once we import it, you can start adding interactions.`,
-                `e.g. https://www.youtube.com/watch?v=DgfSDm65d`
-              ]}
-              labelText="Video URL"
-              fieldId="videoUrl"
-              fieldName="youtubeVideoUrl"
-              placeholder="Enter youtube video link"
-            />
 
-            <Row form>
-              <Col md={6}>
-                <InputField
-                  labelText="Share URL"
-                  fieldId="videoShareUrl"
-                  fieldName="shareUrl"
-                />
-              </Col>
-              <Col md={6}>
-                <InputField
-                  labelText="Embed"
-                  fieldId="videoEmbed"
-                  fieldName="embed"
-                />
-              </Col>
-            </Row>
-            <CheckField
-              labelText="Email Required"
-              fieldId="emailRequiredCheckbox"
-              fieldName="emailRequired"
-            />
-
-            <Button color="primary" className="mt-4">
-              Continue
-            </Button>
-            <Button color="primary" className="mt-4 ml-2">
-              Add Interaction
-            </Button>
-          </Form>
-        </Col>
-        <Col md="6">
-          <iframe
-            title="player"
-            id={`youtube-player-M7lc1UVf-VE`}
-            width="100%"
-            height="390"
-            type="text/html"
-            src="http://www.youtube.com/embed/M7lc1UVf-VE?hd=1&showinfo=0&autohide=1&modestbranding=1&iv_load_policy=3&rel=0&disablekb=1&html5=1&enablejsapi=1&widgetid=1&origin=http://localhost:3000/"
-            frameBorder="0"
-          ></iframe>
+                <Button color="primary" className="mt-4" type="submit">
+                  Continue
+                </Button>
+              </BootstrapForm>
+            )}
+          />
         </Col>
       </Row>
     </div>

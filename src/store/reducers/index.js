@@ -1,3 +1,3 @@
-import subscribedPlanReducer from "./subscribedPlan";
+import videoConfigurationReducer from "./videoConfigurationReducer";
 
-export { subscribedPlanReducer };
+export { videoConfigurationReducer };
