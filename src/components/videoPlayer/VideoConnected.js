@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import { updateVideoDuration } from "../../store/actions/";
-import Video from "./Video";
+import Video from "./VideoClass";
+// import Video from "./Video";
 
 const mapDispatchToProps = dispatch => {
   return {

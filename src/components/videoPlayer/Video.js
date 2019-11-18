@@ -1,50 +1,73 @@
-import React, { useEffect } from "react";
-import {
-  convertToMinutes,
-  convertToSeconds,
-  importYoutubeApi
-} from "../../utilities/videoHelpers";
-import { ListGroup, ListGroupItem } from "reactstrap";
+import React, { useEffect, useState, useRef } from "react";
+import { importYoutubeApi } from "../../utilities/videoHelpers";
+import { ListGroup, ListGroupItem, Spinner } from "reactstrap";
 import ModalInline from "../modal/ModalInline";
-
 let player;
+const Video = ({
+  id,
+  updateVideoDuration,
+  interactions,
+  isStandalone = false
+}) => {
+  const [isPlayerloaded, setIsPlayerLoaded] = useState(false);
+  const [shouldPlayVideo, setShouldPlayVideo] = useState(false);
+  const [shouldDisplayQuestion, setShouldDisplayQuestion] = useState(false);
+  const [questionToDisplay, setQuestionToDisplay] = useState({});
 
-const Video = ({ id, updateVideoDuration }) => {
-  let intervalId;
+  const interactionsMap = new Map();
+  interactions.forEach(interaction => {
+    interactionsMap.set(
+      parseInt(interaction.displayQuestionAtSecond),
+      interaction
+    );
+  });
+
+  const pauseVideo = () => {
+    player.pauseVideo();
+  };
+
+  const playVideo = () => {
+    player.playVideo();
+  };
   const onPlayerReady = event => {
     console.log("Player is ready");
-    // event.target.playVideo();
+    console.log(player);
     updateVideoDuration(player.getDuration());
   };
-  const onPlayerStateChange = event => {
-    console.log("onPlayerStateChange", event);
-    // updateVideoDuration
-    if (event.data === window.YT.PlayerState.PLAYING) {
-      intervalId = setInterval(() => {
+
+  const intervalId = useRef();
+  useEffect(() => {
+    if (shouldPlayVideo) {
+      intervalId.current = setInterval(() => {
         const currentTime = player.getCurrentTime();
-        const currentMinutes = convertToMinutes(currentTime);
-        const currentSeconds = convertToSeconds(currentTime);
+        const currentQues = interactionsMap.get(parseInt(currentTime));
 
-        const totalTime = player.getDuration();
-        const totalMinutes = convertToMinutes(totalTime);
-        const totalSeconds = convertToSeconds(totalTime);
-
-        console.log(currentMinutes + " min : " + currentSeconds + " sec");
-
-        console.log(currentTime);
-        if (parseInt(currentTime) === 4) {
-          // stopVideo();
-          console.log("Here comes the ques");
+        if (currentQues) {
+          player.pauseVideo();
+          setShouldDisplayQuestion(true);
+          setQuestionToDisplay(currentQues);
         }
       }, 1000);
     } else {
-      clearInterval(intervalId);
+      clearInterval(intervalId.current);
+    }
+    return () => {
+      clearInterval(intervalId.current);
+    };
+  }, [shouldPlayVideo, intervalId, interactionsMap, interactions]);
+
+  const onPlayerStateChange = event => {
+    console.log("onPlayerStateChange", event);
+    if (event.data === window.YT.PlayerState.PLAYING) {
+      setShouldPlayVideo(true);
+    } else {
+      setShouldPlayVideo(false);
     }
   };
-  const stopVideo = () => {
-    player.stopVideo();
-  };
+
   const loadVideo = () => {
+    setIsPlayerLoaded(true);
+    console.log("loadvideo");
     player = new window.YT.Player(`youtube-player-${id}`, {
       videoId: id,
       playerVars: {
@@ -62,73 +85,83 @@ const Video = ({ id, updateVideoDuration }) => {
         onStateChange: onPlayerStateChange
       }
     });
-    console.log("player", player);
   };
 
   useEffect(() => {
     if (!window.YT) {
+      console.log("inside First", window.YT);
       importYoutubeApi(loadVideo);
     } else {
-      loadVideo();
+      console.log("inside second", window.YT);
+      if (!isPlayerloaded) {
+        console.log(isPlayerloaded);
+        loadVideo();
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const question = {
-    questionLabel: "who won the world cup",
-    questionId: 1,
-    responses: [
-      {
-        responseId: 1,
-        responseText: "New Zealand",
-        isCorrect: false,
-        urlToOpen: "http://google.com",
-        noOfTimesResponseSelected: 0,
-        shouldOpenUrl: true,
-        resumeVideo: false
-      },
-      {
-        responseId: 1,
-        responseText: "England",
-        isCorrect: true,
-        noOfTimesResponseSelected: 0,
-        shouldOpenUrl: false,
-        resumeVideo: true
-      }
-    ],
-    displayQuestionAtSecond: "45"
-  };
+  // const playerRef = useRef();
+  // useEffect(() => {
+  //   playerRef.current = window.player || {};
+  //   return () => {
+  //     console.log("playerRef.current", playerRef.current);
+  //     playerRef.current.destroy && playerRef.current.destroy();
+  //     playerRef.current = null;
+  //     console.log("player destroyed", window.player);
+  //   };
+  // }, []);
+  // useEffect(() => {
+  //   // console.log("effect");
+  //   // if (!isPlayerloaded) {
+
+  //   // }
+  //   return () => {
+  //     window.player.destroy();
+  //     window.player = null;
+  //     console.log("player destroyed", window.player);
+  //   };
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // });
 
   const onAnsClick = ({ resumeVideo, shouldOpenUrl, urlToOpen }, index) => {
-    question.responses[index].noOfTimesResponseSelected += 1;
-    console.log(question.responses[index].noOfTimesResponseSelected);
-    console.log(question.responses);
-
-    if (resumeVideo) {
-      return stopVideo();
-    }
+    questionToDisplay.responses[index].noOfTimesResponseSelected += 1;
 
     if (shouldOpenUrl) {
-      window.open(urlToOpen, "_blank");
+      return window.open(urlToOpen, "_blank");
     }
+
+    // if (resumeVideo) {
+    setShouldDisplayQuestion(false);
+    playVideo();
+    // }
   };
   return (
-    <div className="modal-inline--container clearfix">
-      <div id={`youtube-player-${id}`}> </div>
-      <ModalInline isOpen={true}>
-        <h4>Ques: {question.questionLabel}</h4>
-        <ListGroup className="mt-3 response-group">
-          {question.responses.map((response, index) => (
-            <ListGroupItem
-              key={`response${index}`}
-              tag="div"
-              onClick={() => onAnsClick(response, index)}
-            >
-              Ans{index + 1}: {response.responseText}
-            </ListGroupItem>
-          ))}
-        </ListGroup>
-      </ModalInline>
+    <div
+      className={`modal-inline--container text-left clearfix ${!isStandalone &&
+        `modal-inline__not-standalone`}`}
+    >
+      {isPlayerloaded ? (
+        <>
+          <div id={`youtube-player-${id}`}> </div>
+          <ModalInline isOpen={shouldDisplayQuestion}>
+            <h4>Ques: {questionToDisplay.questionLabel}</h4>
+            <ListGroup className="mt-3 response-group">
+              {questionToDisplay.responses &&
+                questionToDisplay.responses.map((response, index) => (
+                  <ListGroupItem
+                    key={`response${index}`}
+                    tag="div"
+                    onClick={() => onAnsClick(response, index)}
+                  >
+                    Ans {index + 1}: {response.responseText}
+                  </ListGroupItem>
+                ))}
+            </ListGroup>
+          </ModalInline>
+        </>
+      ) : (
+        <Spinner color="primary" className="spinner-center" />
+      )}
     </div>
   );
 };

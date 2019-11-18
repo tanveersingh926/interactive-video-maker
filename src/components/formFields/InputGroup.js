@@ -21,13 +21,16 @@ const InputGroup = ({
   type = "input",
   plaintext,
   readOnly,
-  inputGroupText
+  inputGroupText,
+  validate
 }) => {
-  const conditionProps = {
-    valid: !!(meta.dirty && meta.valid && !meta.error),
-    invalid: !!(meta.invalid && meta.touched && meta.error)
-  };
-
+  let conditionProps = {};
+  if (validate) {
+    conditionProps = {
+      valid: !!(meta.dirty && meta.valid && !meta.error),
+      invalid: !!(meta.invalid && meta.touched && meta.error)
+    };
+  }
   return (
     <FormGroup>
       {labelText && <Label for={fieldId}>{labelText}</Label>}
@@ -46,7 +49,7 @@ const InputGroup = ({
         <InputGroupAddon addonType="append">
           <InputGroupText>{inputGroupText}</InputGroupText>
         </InputGroupAddon>
-        {meta.error && meta.touched && (
+        {validate && meta.error && meta.touched && (
           <FormFeedback>{meta.error}</FormFeedback>
         )}
       </BootstrapInputGroup>
@@ -56,13 +59,17 @@ const InputGroup = ({
 
 InputGroup.propTypes = {
   type: PropTypes.string,
+  placeholder: PropTypes.string,
+  input: PropTypes.any,
+  meta: PropTypes.any,
   labelText: PropTypes.string.isRequired,
   inputGroupText: PropTypes.string,
   fieldId: PropTypes.string.isRequired,
   fieldName: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   plaintext: PropTypes.bool,
-  readOnly: PropTypes.bool
+  readOnly: PropTypes.bool,
+  validate: PropTypes.func
 };
 
 export default InputGroup;

@@ -7,5 +7,5 @@ function* updateVideoDetailsSaga() {
 }
 
 export default function* rootSaga() {
-  yield takeLatest(updateVideoDetails, updateVideoDetailsSaga);
+  // yield takeLatest(updateVideoDetails, updateVideoDetailsSaga);
 }

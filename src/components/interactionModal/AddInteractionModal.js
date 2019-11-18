@@ -21,6 +21,7 @@ const InteractionModal = ({
 }) => {
   let submitForm;
   let resetForm;
+  const initialInterationAns = { responseAction: "resumeVideo" };
 
   const onSubmit = ({
     displayQuestionAt: displayQuestionAtSecond,
@@ -101,7 +102,7 @@ const InteractionModal = ({
           submitForm = handleSubmit;
           resetForm = form.reset;
           (!values.responses || values.responses.length < 2) &&
-            push("responses", undefined);
+            push("responses", initialInterationAns);
           return (
             <BootstrapForm onSubmit={handleSubmit}>
               <div className="mt-2">
@@ -149,7 +150,7 @@ const InteractionModal = ({
                       <Button
                         color="primary"
                         className="mt-2"
-                        onClick={() => push("responses", null)}
+                        onClick={() => push("responses", initialInterationAns)}
                       >
                         Add Another Response
                       </Button>

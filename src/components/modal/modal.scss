@@ -1,10 +1,22 @@
 .modal-inline--container {
-  width: 100%;
+  width: 640px;
+  margin: 0 auto;
   position: relative;
+  min-height: 300px;
 
   & > iframe {
     float: left;
+  }
+
+  &.modal-inline__not-standalone {
+    position: static;
+    min-height: unset;
     width: 100%;
+    margin: unset;
+
+    & > iframe {
+      width: 100%;
+    }
   }
 
   .modal-dark-backdrop {

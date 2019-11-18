@@ -3,7 +3,8 @@ import {
   updateVideoDetails,
   updateVideoDuration,
   addInteraction,
-  deleteInteraction
+  deleteInteraction,
+  clearVideoDetails
 } from "./videoConfigurationActions";
 import { saveVideo } from "./myVideosActions";
 
@@ -13,5 +14,6 @@ export {
   updateVideoDuration,
   addInteraction,
   deleteInteraction,
+  clearVideoDetails,
   saveVideo
 };

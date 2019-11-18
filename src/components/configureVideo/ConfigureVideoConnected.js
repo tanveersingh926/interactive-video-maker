@@ -1,19 +1,18 @@
 import { connect } from "react-redux";
 import ConfigureVideo from "./ConfigureVideo";
-import { deleteInteraction } from "../../store/actions";
+import {
+  deleteInteraction,
+  saveVideo,
+  clearVideoDetails
+} from "../../store/actions";
 
 const mapStateToProps = state => {
-  const {
-    videoTitle,
-    shortDescription,
-    videoId,
-    interactions
-  } = state.videoConfiguration;
   return {
-    videoTitle,
-    shortDescription,
-    videoId,
-    interactions
+    videoTitle: state.videoConfiguration.videoTitle,
+    videoId: state.videoConfiguration.videoId,
+    shortDescription: state.videoConfiguration.shortDescription,
+    interactions: state.videoConfiguration.interactions,
+    videoDetails: state.videoConfiguration
   };
 };
 
@@ -21,6 +20,12 @@ const mapDispatchToProps = dispatch => {
   return {
     deleteInteraction: interactionID => {
       dispatch(deleteInteraction(interactionID));
+    },
+    saveVideo: videoDetails => {
+      dispatch(saveVideo(videoDetails));
+    },
+    clearVideoDetails: () => {
+      dispatch(clearVideoDetails());
     }
   };
 };

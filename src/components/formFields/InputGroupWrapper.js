@@ -5,7 +5,13 @@ import { Field } from "react-final-form";
 const InputGroupWrapper = ({ name, validate, ...props }) => (
   <Field name={name} validate={validate}>
     {({ input, meta }) => (
-      <InputGroup input={input} meta={meta} {...props} fieldName={name} />
+      <InputGroup
+        input={input}
+        meta={meta}
+        {...props}
+        fieldName={name}
+        validate={validate}
+      />
     )}
   </Field>
 );

@@ -13,12 +13,16 @@ const InputField = ({
   disabled = false,
   type = "input",
   plaintext,
-  readOnly
+  readOnly,
+  validate
 }) => {
-  const conditionProps = {
-    valid: !!(meta.dirty && meta.valid && !meta.error),
-    invalid: !!(meta.invalid && meta.touched && meta.error)
-  };
+  let conditionProps = {};
+  if (validate) {
+    conditionProps = {
+      valid: !!(meta.dirty && meta.valid && !meta.error),
+      invalid: !!(meta.invalid && meta.touched && meta.error)
+    };
+  }
 
   return (
     <FormGroup>
@@ -34,7 +38,9 @@ const InputField = ({
         {...conditionProps}
         type={type}
       />
-      {meta.error && meta.touched && <FormFeedback>{meta.error}</FormFeedback>}
+      {validate && meta.error && meta.touched && (
+        <FormFeedback>{meta.error}</FormFeedback>
+      )}
       {fieldText && (
         <FormText>
           {fieldText.map((text, index) => (
@@ -57,7 +63,8 @@ InputField.propTypes = {
   fieldName: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   plaintext: PropTypes.bool,
-  readOnly: PropTypes.bool
+  readOnly: PropTypes.bool,
+  validate: PropTypes.func
 };
 
 export default InputField;

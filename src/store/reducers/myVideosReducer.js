@@ -1,65 +1,73 @@
 import { handleActions } from "redux-actions";
 import { saveVideo } from "../actions/";
 
+// const defaultState = {
+//   videos: []
+// };
+
 const defaultState = {
   videos: [
     {
       id: "e70724fc-89ff-43f4-adcb-7397c165baed",
       isEmailRequired: false,
-      shortDescription: "This description will come in my videos",
+      shortDescription: "Singer is Diljit Dosanjh feat Badshah",
       videoId: "GVhmynWOPoM",
       videoSource: "YOUTUBE",
-      videoTitle: "Song",
+      videoTitle: "Proper Patola",
       videoUrl: "https://www.youtube.com/watch?v=GVhmynWOPoM",
       videoDuration: 164,
       interactions: [
         {
-          questionLabel: "Ques",
-          questionId: 1,
+          questionLabel: "Who is featured in this song",
+          questionId: "afc8fae4-ed49-4ce5-a3ea-21b7cd9e6849",
           responses: [
             {
-              responseId: 1,
-              responseText: "sd",
-              isCorrect: true,
-              urlToOpen: "google",
-              noOfTimesResponseSelected: 0,
-              shouldOpenUrl: true,
-              resumeVideo: false
-            },
-            {
-              responseId: 1,
-              responseText: "asd",
+              responseId: "04c3298c-7919-4418-b61d-822b6fcc017a",
+              responseText: "Badshah",
               isCorrect: true,
               noOfTimesResponseSelected: 0,
               shouldOpenUrl: false,
               resumeVideo: true
+            },
+            {
+              responseId: "e02be35a-fceb-42fb-9494-524c20a99bc0",
+              responseText: "Raftar",
+              noOfTimesResponseSelected: 0,
+              shouldOpenUrl: false,
+              resumeVideo: true
+            },
+            {
+              responseId: "5531e131-7078-416e-b404-4436aecfe694",
+              responseText: "Honey Singh",
+              urlToOpen:
+                "https://www.google.com/search?q=yo+yo+honey+singh&oq=yo+yo+hn",
+              noOfTimesResponseSelected: 0,
+              shouldOpenUrl: true,
+              resumeVideo: false
             }
           ],
-          displayQuestionAtSecond: "12"
+          displayQuestionAtSecond: "02"
         },
         {
-          questionLabel: "New Question",
-          questionId: 2,
+          questionLabel: "Who is singer in this song",
+          questionId: "402af50f-cf19-4ff4-808b-16bf18c8d23a",
           responses: [
             {
-              responseId: 1,
-              responseText: "sd",
-              isCorrect: true,
-              urlToOpen: "google",
+              responseId: "dfc37579-1846-44ae-abff-990f8b2b3bc0",
+              responseText: "Karan Aujhla",
               noOfTimesResponseSelected: 0,
-              shouldOpenUrl: true,
-              resumeVideo: false
+              shouldOpenUrl: false,
+              resumeVideo: true
             },
             {
-              responseId: 1,
-              responseText: "asdgd",
-              isCorrect: true,
+              responseId: "05850845-ec10-4640-a0d4-16ae93abfcce",
+              responseText: "Diljit Dosanjh",
               noOfTimesResponseSelected: 0,
               shouldOpenUrl: false,
               resumeVideo: true
             }
           ],
-          displayQuestionAtSecond: "45"
+          displayQuestionAtSecond: "4"
         }
       ]
     }

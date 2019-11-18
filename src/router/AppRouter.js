@@ -1,5 +1,4 @@
 import React from "react";
-import { Container, Row, Col } from "reactstrap";
 import {
   BrowserRouter as Router,
   Switch,
@@ -7,35 +6,47 @@ import {
   Redirect
 } from "react-router-dom";
 import HomePage from "../components/homePage/HomePage";
-import MyVideos from "../components/myVideos/MyVideos";
+import MyVideos from "../components/myVideos/MyVideosConnected";
 import AddNewVideo from "../components/addNewVideo/AddNewVideoConnected";
 import ConfigureVideo from "../components/configureVideo/ConfigureVideoConnected";
+import SharedVideoView from "../components/viewVideo/SharedVideoViewConnected";
+import AppWrapper from "./AppWrapper";
+import EmbedVideoView from "../components/viewVideo/EmbedVideoView";
 
 const AppRouter = ({ children }) => {
   return (
     <Router>
-      {children}
-      <Container fluid className="max-width">
-        <Row>
-          <Col>
-            <Switch>
-              <Route exact path="/">
-                <HomePage />
-              </Route>
-              <Route path="/add-new-video">
-                <AddNewVideo />
-              </Route>
-              <Route path="/video/:id">
-                <ConfigureVideo />
-              </Route>
-              <Route path="/my-videos">
-                <MyVideos />
-              </Route>
-              <Redirect to="/" />
-            </Switch>
-          </Col>
-        </Row>
-      </Container>
+      <Switch>
+        <Route exact path="/">
+          <AppWrapper route={<HomePage />}>{children}</AppWrapper>
+        </Route>
+        <Route path="/add-new-video">
+          <AppWrapper route={<AddNewVideo />}>{children}</AppWrapper>
+        </Route>
+        <Route path="/video/:id" exact>
+          <AppWrapper route={<ConfigureVideo />}>{children}</AppWrapper>
+        </Route>
+        <Route path="/video/:id/share">
+          <AppWrapper
+            route={<SharedVideoView />}
+            displayParentComponents={false}
+          >
+            {children}
+          </AppWrapper>
+        </Route>
+        <Route path="/video/:id/embed">
+          <AppWrapper
+            route={<EmbedVideoView />}
+            displayParentComponents={false}
+          >
+            {children}
+          </AppWrapper>
+        </Route>
+        <Route path="/my-videos">
+          <AppWrapper route={<MyVideos />}>{children}</AppWrapper>
+        </Route>
+        <Redirect to="/" />
+      </Switch>
     </Router>
   );
 };

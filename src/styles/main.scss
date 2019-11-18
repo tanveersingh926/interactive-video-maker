@@ -22,3 +22,10 @@ code {
 .max-width {
   max-width: 1280px;
 }
+.spinner-center {
+  position: absolute;
+  left: calc(50% - 1.5rem);
+  width: 3rem;
+  top: calc(50% - 1.5rem);
+  height: 3rem;
+}

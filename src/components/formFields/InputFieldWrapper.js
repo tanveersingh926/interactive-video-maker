@@ -5,7 +5,13 @@ import { Field } from "react-final-form";
 const CustomField = ({ name, validate, ...props }) => (
   <Field name={name} validate={validate}>
     {({ input, meta }) => (
-      <InputField input={input} meta={meta} {...props} fieldName={name} />
+      <InputField
+        input={input}
+        meta={meta}
+        {...props}
+        fieldName={name}
+        validate={validate}
+      />
     )}
   </Field>
 );

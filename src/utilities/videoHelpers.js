@@ -20,8 +20,8 @@ export const importYoutubeApi = loadVideo => {
   const tag = document.createElement("script");
   tag.src = "https://www.youtube.com/iframe_api";
 
-  window.onYouTubeIframeAPIReady = player => {
-    loadVideo(player);
+  window.onYouTubeIframeAPIReady = () => {
+    loadVideo();
   };
 
   const firstScriptTag = document.getElementsByTagName("script")[0];

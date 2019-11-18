@@ -4,18 +4,15 @@ import { Field } from "react-final-form";
 
 const CheckFieldWrapper = ({ name, validate, type = "checkbox", ...props }) => (
   <Field name={name} validate={validate} type={type} {...props}>
-    {({ input, meta }) => {
-      // console.log(input);
-      return (
-        <CheckField
-          input={input}
-          meta={meta}
-          type={type}
-          {...props}
-          fieldName={name}
-        />
-      );
-    }}
+    {({ input, meta }) => (
+      <CheckField
+        input={input}
+        meta={meta}
+        type={type}
+        {...props}
+        fieldName={name}
+      />
+    )}
   </Field>
 );
 
