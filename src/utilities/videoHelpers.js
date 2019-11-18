@@ -10,6 +10,12 @@ export const convertToSeconds = videoDuration => {
     : Math.floor(videoDuration % 60.0);
 };
 
+export const convertToMinutesAndSeconds = videoDuration => {
+  const currentMinutes = convertToMinutes(videoDuration);
+  const currentSeconds = convertToSeconds(videoDuration);
+  return `${currentMinutes}:${currentSeconds}`;
+};
+
 export const importYoutubeApi = loadVideo => {
   const tag = document.createElement("script");
   tag.src = "https://www.youtube.com/iframe_api";

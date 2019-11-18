@@ -46,8 +46,10 @@ const InputGroup = ({
         <InputGroupAddon addonType="append">
           <InputGroupText>{inputGroupText}</InputGroupText>
         </InputGroupAddon>
+        {meta.error && meta.touched && (
+          <FormFeedback>{meta.error}</FormFeedback>
+        )}
       </BootstrapInputGroup>
-      {meta.error && meta.touched && <FormFeedback>{meta.error}</FormFeedback>}
     </FormGroup>
   );
 };

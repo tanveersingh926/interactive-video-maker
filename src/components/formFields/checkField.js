@@ -7,10 +7,11 @@ const CheckField = ({
   fieldName,
   fieldId,
   labelText,
-  className
+  className,
+  input
 }) => (
   <FormGroup check className={className}>
-    <Input type={type} name={fieldName} id={fieldId} />
+    <Input type={type} name={fieldName} id={fieldId} {...input} />
     <Label for={fieldId} check>
       {labelText}
     </Label>

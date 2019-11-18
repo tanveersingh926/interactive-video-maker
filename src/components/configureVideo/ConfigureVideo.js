@@ -1,14 +1,27 @@
 import React, { useState } from "react";
-import { Col, Row, Button, Form as BootstrapForm } from "reactstrap";
+import {
+  Col,
+  Row,
+  Button,
+  Form as BootstrapForm,
+  ListGroup,
+  ListGroupItem
+} from "reactstrap";
 import { useParams } from "react-router-dom";
 import { Form } from "react-final-form";
 
-import Modal from "../modal/Modal";
-import InteractionModal from "../interactionModal/InteractionModal";
-import CustomField from "../formFields/FieldWrapper";
-import VideoConnected from "../videoPlayer/VideoConnected";
+import AddInteractionModal from "../interactionModal/AddInteractionModalConnected";
+import CustomField from "../formFields/InputFieldWrapper";
+import Video from "../videoPlayer/VideoConnected";
+import InteractionItem from "./InteractionItem";
 
-const ConfigureVideo = ({ videoTitle, videoId, shortDescription }) => {
+const ConfigureVideo = ({
+  videoTitle,
+  videoId,
+  shortDescription,
+  interactions,
+  deleteInteraction
+}) => {
   const [isOpen, setModalIsOpen] = useState(false);
 
   const { id: idFromParam } = useParams();
@@ -74,6 +87,14 @@ const ConfigureVideo = ({ videoTitle, videoId, shortDescription }) => {
                 <Button
                   color="primary"
                   className="mt-4"
+                  onClick={() => console.log("Save Video")}
+                  type="submit"
+                >
+                  Save Video
+                </Button>
+                <Button
+                  color="primary"
+                  className="mt-4 ml-2"
                   onClick={() => setModalIsOpen(true)}
                   type="button"
                 >
@@ -83,32 +104,34 @@ const ConfigureVideo = ({ videoTitle, videoId, shortDescription }) => {
             )}
           />
         </Col>
-        <Col md="6">{videoId && <VideoConnected id={videoId} />}</Col>
+        <Col md="6">{videoId && <Video id={videoId} />}</Col>
       </Row>
-      <Modal
-        title="Add Interaction"
-        isOpen={false} // {isOpen}
-        onClose={() => setModalIsOpen(false)}
-        footerBtns={[
-          {
-            text: "Save",
-            action: () => console.log("test"),
-            isPrimary: true
-          },
-          {
-            text: "Save and Add Another",
-            action: () => console.log("test"),
-            isPrimary: true
-          },
-          {
-            text: "Cancel",
-            action: () => console.log("secondary"),
-            isPrimary: false
-          }
-        ]}
-      >
-        <InteractionModal></InteractionModal>
-      </Modal>
+      {interactions.length >= 1 && (
+        <Row>
+          <Col>
+            <h3 className="mt-5">Interactions</h3>
+            <ListGroup className="mb-4">
+              {interactions.map(
+                (
+                  { questionLabel, displayQuestionAtSecond, questionId },
+                  index
+                ) => (
+                  <ListGroupItem key={displayQuestionAtSecond}>
+                    <InteractionItem
+                      deleteItem={() => deleteInteraction(questionId)}
+                      ques={questionLabel}
+                      quesNumber={index + 1}
+                      interactionTime={displayQuestionAtSecond}
+                    />
+                  </ListGroupItem>
+                )
+              )}
+            </ListGroup>
+          </Col>
+        </Row>
+      )}
+
+      <AddInteractionModal isOpen={isOpen} setModalIsOpen={setModalIsOpen} />
     </div>
   );
 };

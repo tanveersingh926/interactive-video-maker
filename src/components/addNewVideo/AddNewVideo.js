@@ -9,9 +9,9 @@ import {
   composeValidators
 } from "../../utilities/validation";
 import { Form } from "react-final-form";
-import CustomField from "../formFields/FieldWrapper";
+import CustomField from "../formFields/InputFieldWrapper";
 
-const AddNewVideo = ({ updateVideoDetails, ...props }) => {
+const AddNewVideo = ({ updateVideoDetails }) => {
   let videoId = null;
   const history = useHistory();
   const createUrlSearchParam = url => {
@@ -31,7 +31,6 @@ const AddNewVideo = ({ updateVideoDetails, ...props }) => {
     try {
       const uuidForVideo = uuid();
       videoId = createUrlSearchParam(videoUrl);
-      console.log({ videoId, uuidForVideo });
       updateVideoDetails({
         videoId,
         videoUrl,
@@ -40,7 +39,7 @@ const AddNewVideo = ({ updateVideoDetails, ...props }) => {
         videoSource: VIDEO_SOURCE_YOUTUBE,
         id: uuidForVideo
       });
-      history.push(`/video/${uuid}`);
+      history.push(`/video/${uuidForVideo}`);
     } catch (error) {
       console.log(error);
       alert("An error happened please try after sometime");

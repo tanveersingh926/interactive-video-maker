@@ -1,8 +1,8 @@
 import React from "react";
-import InputField from "../formFields/InputField";
+import InputField from "./InputField";
 import { Field } from "react-final-form";
 
-const FieldWrapper = ({ name, validate, ...props }) => (
+const CustomField = ({ name, validate, ...props }) => (
   <Field name={name} validate={validate}>
     {({ input, meta }) => (
       <InputField input={input} meta={meta} {...props} fieldName={name} />
@@ -10,4 +10,4 @@ const FieldWrapper = ({ name, validate, ...props }) => (
   </Field>
 );
 
-export default FieldWrapper;
+export default CustomField;

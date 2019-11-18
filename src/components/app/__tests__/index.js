@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 
-import App from "../AppConnected";
-import store from "../../../store";
+import App from "../App";
+import store from "../../../store/configureStore";
 
 jest.mock("react-dom", () => ({ render: jest.fn() }));
 

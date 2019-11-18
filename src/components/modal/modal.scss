@@ -1,0 +1,36 @@
+.modal-inline--container {
+  width: 100%;
+  position: relative;
+
+  & > iframe {
+    float: left;
+    width: 100%;
+  }
+
+  .modal-dark-backdrop {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    background: rgba(0, 0, 0, 0.4);
+  }
+  .modal-inline {
+    background: #fff;
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    max-width: 800px;
+    z-index: 2;
+    overflow-y: auto;
+    padding: 20px 15px;
+    box-sizing: border-box;
+  }
+}
+
+.response-group {
+  .list-group-item {
+    cursor: pointer;
+  }
+}

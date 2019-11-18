@@ -2,7 +2,7 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import AppConnected from "../AppConnected";
 import { Provider } from "react-redux";
-import store from "../../../store";
+import store from "../../../store/configureStore";
 import { APP_TITLE } from "../../../constants";
 
 describe("component should render with all basic sections", () => {
