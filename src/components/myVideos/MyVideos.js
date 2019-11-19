@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import VideoIcon from "../../assets/img/video-icon.svg";
 import {
@@ -11,16 +11,17 @@ import {
   Col,
   Row
 } from "reactstrap";
-const MyVideos = ({ videos }) => {
-  const history = useHistory();
-  // const origin = window.location.origin;
+
+const MyVideos = ({ fetchAllVideos, videos }) => {
   const openSharedUrl = id => {
-    // const urlToOpen = `${origin}/video/${id}/share`;
-    // window.open(urlToOpen, "_blank");
-    const urlToOpen = `/video/${id}/share`;
-    console.log(urlToOpen);
-    history.push(urlToOpen);
+    const origin = window.location.origin;
+    const urlToOpen = `${origin}/video/${id}/share`;
+    window.open(urlToOpen, "_blank");
   };
+
+  useEffect(() => {
+    fetchAllVideos();
+  }, [fetchAllVideos]);
   return (
     <Row className="mt-5">
       {videos.length >= 1 ? (

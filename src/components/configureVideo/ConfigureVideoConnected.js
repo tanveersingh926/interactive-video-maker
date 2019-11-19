@@ -1,10 +1,6 @@
 import { connect } from "react-redux";
 import ConfigureVideo from "./ConfigureVideo";
-import {
-  deleteInteraction,
-  saveVideo,
-  clearVideoDetails
-} from "../../store/actions";
+import { deleteInteraction, saveVideo } from "../../store/actions";
 
 const mapStateToProps = state => {
   return {
@@ -23,9 +19,6 @@ const mapDispatchToProps = dispatch => {
     },
     saveVideo: videoDetails => {
       dispatch(saveVideo(videoDetails));
-    },
-    clearVideoDetails: () => {
-      dispatch(clearVideoDetails());
     }
   };
 };

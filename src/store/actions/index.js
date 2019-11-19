@@ -6,7 +6,16 @@ import {
   deleteInteraction,
   clearVideoDetails
 } from "./videoConfigurationActions";
-import { saveVideo } from "./myVideosActions";
+import {
+  saveVideo,
+  fetchAllVideos,
+  fetchVideoByID,
+  fetchVideosCompleted,
+  fetchVideosError,
+  saveAllVideos,
+  saveVideoToView,
+  removeVideoToView
+} from "./myVideosActions";
 
 export {
   dummyAction,
@@ -15,5 +24,12 @@ export {
   addInteraction,
   deleteInteraction,
   clearVideoDetails,
-  saveVideo
+  saveVideo,
+  fetchAllVideos,
+  fetchVideoByID,
+  fetchVideosCompleted,
+  fetchVideosError,
+  saveAllVideos,
+  saveVideoToView,
+  removeVideoToView
 };

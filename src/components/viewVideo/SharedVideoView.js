@@ -1,19 +1,20 @@
-import React from "react";
-import { useParams, useHistory } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Video from "../videoPlayer/VideoConnected";
-import { isEmpty } from "../../utilities/validation";
 
-const SharedVideoView = ({ videos }) => {
-  const history = useHistory();
+const SharedVideoView = ({ video, fetchVideoById }) => {
   const { id: idFromParam, embedVideo } = useParams();
-  if (isEmpty(videos)) {
-    history.push("/");
-    return null;
-  }
   const isVideoEmbeded = embedVideo !== "embed";
-  const { videoId, videoTitle, shortDescription, interactions } = videos.find(
-    ({ id }) => id === idFromParam
-  );
+  const {
+    videoId = "",
+    videoTitle = "",
+    shortDescription = "",
+    interactions = []
+  } = video;
+  useEffect(() => {
+    fetchVideoById(idFromParam);
+  }, [idFromParam, fetchVideoById]);
+
   return (
     <div className={isVideoEmbeded ? "text-center mt-5" : ""}>
       {isVideoEmbeded && (
@@ -22,7 +23,9 @@ const SharedVideoView = ({ videos }) => {
           <p className="mb-4">{shortDescription}</p>
         </>
       )}
-      <Video id={videoId} isStandalone interactions={interactions} />
+      {videoId && (
+        <Video id={videoId} isStandalone interactions={interactions} />
+      )}
     </div>
   );
 };

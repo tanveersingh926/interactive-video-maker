@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import MyVideos from "./MyVideos";
+import { fetchAllVideos } from "../../store/actions";
 
 const mapStateToProps = state => {
   return {
@@ -7,6 +8,17 @@ const mapStateToProps = state => {
   };
 };
 
-const MyVideosConnected = connect(mapStateToProps)(MyVideos);
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchAllVideos: () => {
+      dispatch(fetchAllVideos());
+    }
+  };
+};
+
+const MyVideosConnected = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MyVideos);
 
 export default MyVideosConnected;

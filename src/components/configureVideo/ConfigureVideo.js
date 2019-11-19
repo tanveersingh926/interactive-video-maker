@@ -22,8 +22,7 @@ const ConfigureVideo = ({
   interactions,
   videoDetails,
   deleteInteraction,
-  saveVideo,
-  clearVideoDetails
+  saveVideo
 }) => {
   const history = useHistory();
   if (!(videoTitle || videoId)) {
@@ -37,16 +36,8 @@ const ConfigureVideo = ({
   const shareUrlValue = `${origin}/video/${idFromParam}/share`;
   const codeToEmbed = `<iframe src="${origin}/video/${idFromParam}/embed" allowtransparency="true" frameborder="0" scrolling="no" width="640" height="390"></iframe>`;
 
-  const saveVideoToMyVideos = () => {
+  const onSubmit = () => {
     saveVideo(videoDetails);
-    clearVideoDetails();
-    history.push("/my-videos");
-  };
-
-  const onSubmit = values => {
-    saveVideo(videoDetails);
-    clearVideoDetails();
-    history.push("/my-videos");
   };
 
   const initialValues = {
@@ -64,7 +55,7 @@ const ConfigureVideo = ({
           <Form
             initialValues={initialValues}
             onSubmit={onSubmit}
-            render={({ handleSubmit, values }) => (
+            render={({ handleSubmit }) => (
               <BootstrapForm onSubmit={handleSubmit}>
                 <Row form>
                   <Col md={6}>
@@ -103,12 +94,7 @@ const ConfigureVideo = ({
                   name="embed"
                 />
                 {interactions.length >= 1 && (
-                  <Button
-                    color="primary"
-                    className="mt-4 mr-2"
-                    // onClick={saveVideoToMyVideos}
-                    type="submit"
-                  >
+                  <Button color="primary" className="mt-4 mr-2" type="submit">
                     Save Video
                   </Button>
                 )}

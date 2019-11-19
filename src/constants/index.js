@@ -14,3 +14,8 @@ export const RESPONSE_ACTION = {
 export const VIDEO_SOURCE_API = {
   YOUTUBE: "https://www.youtube.com/iframe_api"
 };
+
+export const API_URL = {
+  BASE_URL: "http://localhost:3004/",
+  VIDEOS: "videos"
+};

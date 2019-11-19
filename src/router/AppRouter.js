@@ -1,20 +1,18 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from "react-router-dom";
+import { Router, Switch, Route, Redirect } from "react-router-dom";
 import HomePage from "../components/homePage/HomePage";
 import MyVideos from "../components/myVideos/MyVideosConnected";
 import AddNewVideo from "../components/addNewVideo/AddNewVideoConnected";
 import ConfigureVideo from "../components/configureVideo/ConfigureVideoConnected";
 import SharedVideoView from "../components/viewVideo/SharedVideoViewConnected";
 import AppWrapper from "./AppWrapper";
+import { createBrowserHistory } from "history";
+
+export const history = createBrowserHistory();
 
 const AppRouter = ({ children }) => {
   return (
-    <Router>
+    <Router history={history}>
       <Switch>
         <Route exact path="/">
           <AppWrapper route={<HomePage />}>{children}</AppWrapper>

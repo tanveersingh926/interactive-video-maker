@@ -35,6 +35,10 @@ class YouTubeVideo extends React.Component {
     }
   };
 
+  componentWillUnmount() {
+    this.props.removeVideoToView();
+  }
+
   loadVideo = () => {
     const { id } = this.props;
 
@@ -88,13 +92,10 @@ class YouTubeVideo extends React.Component {
       return window.open(urlToOpen, "_blank");
     }
 
-    // if (resumeVideo) {
-    // setShouldDisplayQuestion(false);
     this.setState({
       shouldDisplayQuestion: false
     });
     this.player.playVideo();
-    // }
   }
 
   render = () => {

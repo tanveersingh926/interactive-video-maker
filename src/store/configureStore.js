@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import createSagaMiddleware from "redux-saga";
-import videoConfigurationSaga from "./sagas/videoConfigurationSaga";
+import { videoConfigurationSaga, myVideosSaga } from "./sagas/";
 import { videoConfigurationReducer, myVideosReducer } from "./reducers";
 
 const sagaMiddleware = createSagaMiddleware();
@@ -14,8 +14,7 @@ const store = createStore(
   composeEnhancer(applyMiddleware(sagaMiddleware))
 );
 
-const rootSagas = [videoConfigurationSaga];
-
+const rootSagas = [videoConfigurationSaga, myVideosSaga];
 rootSagas.forEach(sagaMiddleware.run);
 
 export default store;
