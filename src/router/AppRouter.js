@@ -11,7 +11,6 @@ import AddNewVideo from "../components/addNewVideo/AddNewVideoConnected";
 import ConfigureVideo from "../components/configureVideo/ConfigureVideoConnected";
 import SharedVideoView from "../components/viewVideo/SharedVideoViewConnected";
 import AppWrapper from "./AppWrapper";
-import EmbedVideoView from "../components/viewVideo/EmbedVideoView";
 
 const AppRouter = ({ children }) => {
   return (
@@ -26,17 +25,9 @@ const AppRouter = ({ children }) => {
         <Route path="/video/:id" exact>
           <AppWrapper route={<ConfigureVideo />}>{children}</AppWrapper>
         </Route>
-        <Route path="/video/:id/share">
+        <Route path="/video/:id/:embedVideo">
           <AppWrapper
             route={<SharedVideoView />}
-            displayParentComponents={false}
-          >
-            {children}
-          </AppWrapper>
-        </Route>
-        <Route path="/video/:id/embed">
-          <AppWrapper
-            route={<EmbedVideoView />}
             displayParentComponents={false}
           >
             {children}

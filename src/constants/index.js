@@ -10,3 +10,7 @@ export const RESPONSE_ACTION = {
   OPEN_LINK: "openLink",
   RESUME_VIDEO: "resumeVideo"
 };
+
+export const VIDEO_SOURCE_API = {
+  YOUTUBE: "https://www.youtube.com/iframe_api"
+};

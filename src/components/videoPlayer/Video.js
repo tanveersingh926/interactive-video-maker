@@ -1,77 +1,47 @@
-import React, { useEffect, useState, useRef } from "react";
-import { importYoutubeApi } from "../../utilities/videoHelpers";
-import { ListGroup, ListGroupItem, Spinner } from "reactstrap";
+import PropTypes from "prop-types";
+import React from "react";
+import { ListGroup, ListGroupItem } from "reactstrap";
 import ModalInline from "../modal/ModalInline";
-let player;
-const Video = ({
-  id,
-  updateVideoDuration,
-  interactions,
-  isStandalone = false
-}) => {
-  const [isPlayerloaded, setIsPlayerLoaded] = useState(false);
-  const [shouldPlayVideo, setShouldPlayVideo] = useState(false);
-  const [shouldDisplayQuestion, setShouldDisplayQuestion] = useState(false);
-  const [questionToDisplay, setQuestionToDisplay] = useState({});
+import { VIDEO_SOURCE_API } from "../../constants";
 
-  const interactionsMap = new Map();
-  interactions.forEach(interaction => {
-    interactionsMap.set(
-      parseInt(interaction.displayQuestionAtSecond),
-      interaction
-    );
-  });
-
-  const pauseVideo = () => {
-    player.pauseVideo();
+class YouTubeVideo extends React.Component {
+  static propTypes = {
+    id: PropTypes.string.isRequired
   };
 
-  const playVideo = () => {
-    player.playVideo();
-  };
-  const onPlayerReady = event => {
-    console.log("Player is ready");
-    console.log(player);
-    updateVideoDuration(player.getDuration());
-  };
-
-  const intervalId = useRef();
-  useEffect(() => {
-    if (shouldPlayVideo) {
-      intervalId.current = setInterval(() => {
-        const currentTime = player.getCurrentTime();
-        const currentQues = interactionsMap.get(parseInt(currentTime));
-
-        if (currentQues) {
-          player.pauseVideo();
-          setShouldDisplayQuestion(true);
-          setQuestionToDisplay(currentQues);
-        }
-      }, 1000);
-    } else {
-      clearInterval(intervalId.current);
-    }
-    return () => {
-      clearInterval(intervalId.current);
+  constructor(props) {
+    super(props);
+    this.state = {
+      shouldPlayVideo: false,
+      shouldDisplayQuestion: false,
+      questionToDisplay: {}
     };
-  }, [shouldPlayVideo, intervalId, interactionsMap, interactions]);
+    this.onPlayerStateChange = this.onPlayerStateChange.bind(this);
+    this.interactionsMap = new Map();
+    this.intervalId = 1;
+  }
 
-  const onPlayerStateChange = event => {
-    console.log("onPlayerStateChange", event);
-    if (event.data === window.YT.PlayerState.PLAYING) {
-      setShouldPlayVideo(true);
+  componentDidMount = () => {
+    if (!window.YT) {
+      const tag = document.createElement("script");
+      tag.src = VIDEO_SOURCE_API.YOUTUBE;
+
+      window.onYouTubeIframeAPIReady = this.loadVideo;
+
+      const firstScriptTag = document.getElementsByTagName("script")[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     } else {
-      setShouldPlayVideo(false);
+      this.loadVideo();
     }
   };
 
-  const loadVideo = () => {
-    setIsPlayerLoaded(true);
-    console.log("loadvideo");
-    player = new window.YT.Player(`youtube-player-${id}`, {
+  loadVideo = () => {
+    const { id } = this.props;
+
+    this.player = new window.YT.Player(`youtube-player-${id}`, {
       videoId: id,
       playerVars: {
-        origin: "http://localhost:3000",
+        origin: window.location.origin,
         controls: 1,
         modestbranding: 1,
         rel: 0,
@@ -81,66 +51,69 @@ const Video = ({
         enablejsapi: 1
       },
       events: {
-        onReady: onPlayerReady,
-        onStateChange: onPlayerStateChange
+        onReady: this.onPlayerReady,
+        onStateChange: this.onPlayerStateChange
       }
     });
   };
 
-  useEffect(() => {
-    if (!window.YT) {
-      console.log("inside First", window.YT);
-      importYoutubeApi(loadVideo);
+  onPlayerStateChange(event) {
+    if (event.data === window.YT.PlayerState.PLAYING) {
+      this.intervalId = setInterval(() => {
+        const currentTime = this.player.getCurrentTime();
+        const currentQues = this.interactionsMap.get(parseInt(currentTime));
+
+        if (currentQues) {
+          this.player.pauseVideo();
+          this.setState({
+            shouldDisplayQuestion: true,
+            questionToDisplay: currentQues
+          });
+        }
+      }, 1000);
     } else {
-      console.log("inside second", window.YT);
-      if (!isPlayerloaded) {
-        console.log(isPlayerloaded);
-        loadVideo();
-      }
+      clearInterval(this.intervalId);
     }
-  }, []);
-
-  // const playerRef = useRef();
-  // useEffect(() => {
-  //   playerRef.current = window.player || {};
-  //   return () => {
-  //     console.log("playerRef.current", playerRef.current);
-  //     playerRef.current.destroy && playerRef.current.destroy();
-  //     playerRef.current = null;
-  //     console.log("player destroyed", window.player);
-  //   };
-  // }, []);
-  // useEffect(() => {
-  //   // console.log("effect");
-  //   // if (!isPlayerloaded) {
-
-  //   // }
-  //   return () => {
-  //     window.player.destroy();
-  //     window.player = null;
-  //     console.log("player destroyed", window.player);
-  //   };
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // });
-
-  const onAnsClick = ({ resumeVideo, shouldOpenUrl, urlToOpen }, index) => {
-    questionToDisplay.responses[index].noOfTimesResponseSelected += 1;
+  }
+  onPlayerReady = event => {
+    console.log("Player is ready");
+    this.props.updateVideoDuration(this.player.getDuration());
+  };
+  onAnsClick({ resumeVideo, shouldOpenUrl, urlToOpen }, index) {
+    // this.state.questionToDisplay.responses[
+    //   index
+    // ].noOfTimesResponseSelected += 1;
 
     if (shouldOpenUrl) {
       return window.open(urlToOpen, "_blank");
     }
 
     // if (resumeVideo) {
-    setShouldDisplayQuestion(false);
-    playVideo();
+    // setShouldDisplayQuestion(false);
+    this.setState({
+      shouldDisplayQuestion: false
+    });
+    this.player.playVideo();
     // }
-  };
-  return (
-    <div
-      className={`modal-inline--container text-left clearfix ${!isStandalone &&
-        `modal-inline__not-standalone`}`}
-    >
-      {isPlayerloaded ? (
+  }
+
+  render = () => {
+    const { id, isStandalone, interactions } = this.props;
+    const { shouldDisplayQuestion, questionToDisplay } = this.state;
+    const interactionsMap = new Map();
+    interactions.forEach(interaction => {
+      interactionsMap.set(
+        parseInt(interaction.displayQuestionAtSecond),
+        interaction
+      );
+    });
+
+    this.interactionsMap = interactionsMap;
+    return (
+      <div
+        className={`modal-inline--container text-left clearfix ${!isStandalone &&
+          `modal-inline__not-standalone`}`}
+      >
         <>
           <div id={`youtube-player-${id}`}> </div>
           <ModalInline isOpen={shouldDisplayQuestion}>
@@ -151,7 +124,7 @@ const Video = ({
                   <ListGroupItem
                     key={`response${index}`}
                     tag="div"
-                    onClick={() => onAnsClick(response, index)}
+                    onClick={() => this.onAnsClick(response, index)}
                   >
                     Ans {index + 1}: {response.responseText}
                   </ListGroupItem>
@@ -159,11 +132,9 @@ const Video = ({
             </ListGroup>
           </ModalInline>
         </>
-      ) : (
-        <Spinner color="primary" className="spinner-center" />
-      )}
-    </div>
-  );
-};
+      </div>
+    );
+  };
+}
 
-export default Video;
+export default YouTubeVideo;
