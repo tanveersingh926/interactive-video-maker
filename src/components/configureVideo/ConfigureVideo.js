@@ -64,7 +64,6 @@ const ConfigureVideo = ({
                       labelText="Title"
                       fieldId="videoTitle"
                       placeholder="Enter Video Title"
-                      value="Tanveer"
                       disabled
                     />
                   </Col>

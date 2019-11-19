@@ -15,6 +15,7 @@ const InteractionItem = ({ deleteItem, ques, quesNumber, interactionTime }) => {
           className="close text-danger"
           aria-label="Close"
           onClick={deleteItem}
+          data-testid="deleteInteraction"
         >
           <span aria-hidden="true">&times;</span>
         </button>

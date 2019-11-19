@@ -17,9 +17,7 @@ const AddNewVideo = ({ updateVideoDetails }) => {
   const createUrlSearchParam = url => {
     const paramString = url.split("?").pop();
     const searchParams = new URLSearchParams(paramString);
-    if (searchParams.has("v")) {
-      return searchParams.get("v");
-    }
+    return searchParams.get("v");
   };
 
   const onSubmit = values => {
@@ -28,22 +26,17 @@ const AddNewVideo = ({ updateVideoDetails }) => {
       title: videoTitle,
       shortDescription
     } = values;
-    try {
-      const uuidForVideo = uuid();
-      videoId = createUrlSearchParam(videoUrl);
-      updateVideoDetails({
-        videoId,
-        videoUrl,
-        videoTitle,
-        shortDescription,
-        videoSource: VIDEO_SOURCE_YOUTUBE,
-        id: uuidForVideo
-      });
-      history.push(`/video/${uuidForVideo}`);
-    } catch (error) {
-      console.log(error);
-      alert("An error happened please try after sometime");
-    }
+    const uuidForVideo = uuid();
+    videoId = createUrlSearchParam(videoUrl);
+    updateVideoDetails({
+      videoId,
+      videoUrl,
+      videoTitle,
+      shortDescription,
+      videoSource: VIDEO_SOURCE_YOUTUBE,
+      id: uuidForVideo
+    });
+    history.push(`/video/${uuidForVideo}`);
   };
 
   return (
