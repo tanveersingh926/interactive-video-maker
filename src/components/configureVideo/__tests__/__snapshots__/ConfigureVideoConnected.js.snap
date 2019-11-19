@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`component should render with all basic sections should redirect to homepage if no videoId 1`] = `
+exports[`component should render with all basic sections should save snapshot of the page 1`] = `
 <DocumentFragment>
   <div
     class="mt-4"

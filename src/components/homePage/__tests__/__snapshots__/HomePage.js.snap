@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component should render with all basic sections should render page snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="row"
+  >
+    <div
+      class="mt-4 col-sm-3"
+    >
+      <div
+        class="card"
+      >
+        <img
+          alt="Add New Video 1"
+          class="card-img-top"
+          src="add-video-icon.svg"
+          width="100%"
+        />
+        <div
+          class="card-body"
+        >
+          <div
+            class="card-title"
+          >
+            New Video
+          </div>
+          <p
+            class="card-text"
+          >
+            Lets make another with interactive and fun to watch.
+          </p>
+          <a
+            class="btn btn-primary"
+            href="/add-new-video"
+          >
+            Lets go!
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

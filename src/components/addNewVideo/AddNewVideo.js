@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { VIDEO_SOURCE_YOUTUBE } from "../../constants/index";
 import {
   required,
-  urlIsValid,
+  isUrlValid,
   composeValidators
 } from "../../utilities/validation";
 import { Form } from "react-final-form";
@@ -69,7 +69,7 @@ const AddNewVideo = ({ updateVideoDetails }) => {
                 </Row>
                 <CustomField
                   name="youtubeVideoUrl"
-                  validate={composeValidators(required, urlIsValid)}
+                  validate={composeValidators(required, isUrlValid)}
                   fieldText={[
                     `Enter the link to your video. Once we import it, you can start adding interactions.`,
                     `e.g. https://www.youtube.com/watch?v=DgfSDm65d`

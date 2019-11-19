@@ -37,7 +37,7 @@ const MyVideos = ({ fetchAllVideos, videos }) => {
                   color="primary"
                   onClick={event => openSharedUrl(id)}
                 >
-                  Open
+                  View
                 </Button>
               </CardBody>
             </Card>

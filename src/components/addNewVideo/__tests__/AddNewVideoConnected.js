@@ -25,10 +25,8 @@ describe("component should render with all basic sections", () => {
   jest.setTimeout(30000);
   window.alert = jest.fn();
 
-  it("renders Header with given Value", async () => {
-    const { getByText, getByPlaceholderText, debug } = renderSubject({
-      updateVideoDetails: () => console.log("test updateVideoDetails")
-    });
+  it("add new video if details are filled", async () => {
+    const { getByText, getByPlaceholderText } = renderSubject();
 
     const titleInput = getByPlaceholderText("Enter Video Title");
     fireEvent.change(titleInput, { target: { value: "titleInput" } });
@@ -45,7 +43,18 @@ describe("component should render with all basic sections", () => {
     fireEvent.touchStart(linkInput, {
       target: { value: "https://www.youtube.com/watch?v=U65TWIP3mpQ" }
     });
-    console.log(debug());
     fireEvent.click(getByText("Continue"));
+  });
+
+  it("Should not submit, if url field is empty ", async () => {
+    const { getByText, getByPlaceholderText } = renderSubject();
+
+    const titleInput = getByPlaceholderText("Enter Video Title");
+    fireEvent.change(titleInput, { target: { value: "titleInput" } });
+    fireEvent.touchStart(titleInput, { target: { value: "titleInput" } });
+
+    fireEvent.click(getByText("Continue"));
+
+    getByText("This Field is required");
   });
 });

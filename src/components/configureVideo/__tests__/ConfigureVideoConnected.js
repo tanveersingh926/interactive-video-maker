@@ -77,7 +77,7 @@ describe("component should render with all basic sections", () => {
     );
   };
 
-  it("should redirect to homepage if no videoId", async () => {
+  it("should save snapshot of the page", async () => {
     const { asFragment } = renderSubject();
 
     expect(asFragment()).toMatchSnapshot();
