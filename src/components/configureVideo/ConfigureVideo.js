@@ -60,7 +60,7 @@ const ConfigureVideo = ({
           onSubmit={onSubmit}
           render={({ handleSubmit, values }) => (
             <>
-              <Col md="6">
+              <Col md="6" className="order-sm-2 order-md-1 mb-5">
                 <BootstrapForm onSubmit={handleSubmit}>
                   <Row form>
                     <Col md={6}>
@@ -118,7 +118,7 @@ const ConfigureVideo = ({
                   </Button>
                 </BootstrapForm>
               </Col>
-              <Col md="6">
+              <Col md="6" className="order-sm-1 order-md-2 mb-4">
                 <Video
                   id={videoId}
                   interactions={interactions}
@@ -132,7 +132,7 @@ const ConfigureVideo = ({
       {interactions.length >= 1 && (
         <Row>
           <Col>
-            <h3 className="mt-5">Interactions</h3>
+            <h3>Interactions</h3>
             <ListGroup className="mb-4">
               {interactions.map(
                 (

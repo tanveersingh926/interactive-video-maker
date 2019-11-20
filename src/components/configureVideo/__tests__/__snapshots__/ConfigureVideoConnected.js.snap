@@ -14,7 +14,7 @@ exports[`component should render with all basic sections should save snapshot of
       class="row"
     >
       <div
-        class="col-md-6"
+        class="order-sm-2 order-md-1 mb-5 col-md-6"
       >
         <form
           class=""
@@ -136,7 +136,7 @@ exports[`component should render with all basic sections should save snapshot of
         </form>
       </div>
       <div
-        class="col-md-6"
+        class="order-sm-1 order-md-2 mb-4 col-md-6"
       >
         <div
           class="modal-inline--container text-left clearfix modal-inline__not-standalone"
@@ -155,9 +155,7 @@ exports[`component should render with all basic sections should save snapshot of
       <div
         class="col"
       >
-        <h3
-          class="mt-5"
-        >
+        <h3>
           Interactions
         </h3>
         <ul

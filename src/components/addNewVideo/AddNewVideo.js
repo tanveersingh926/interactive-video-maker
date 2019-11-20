@@ -44,7 +44,7 @@ const AddNewVideo = ({ updateVideoDetails }) => {
     <div className="mt-4">
       <h1 className="mb-5">Import Video</h1>
       <Row>
-        <Col md={6} sm={9} xs={12}>
+        <Col md={6}>
           <Form
             onSubmit={onSubmit}
             render={({ handleSubmit }) => (
