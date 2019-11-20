@@ -116,7 +116,8 @@ describe("component should render with all basic sections", () => {
         shortDescription: "Short description of video",
         videoDetails: { details: "here" },
         videoId: "youtubeId",
-        videoTitle: "Title of Video"
+        videoTitle: "Title of Video",
+        isEmailRequired: false
       },
       type: "Save video to myVideos"
     });

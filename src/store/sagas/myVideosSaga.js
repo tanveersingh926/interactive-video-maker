@@ -3,7 +3,7 @@ import { history } from "../../router/AppRouter";
 import {
   fetchAllVideos,
   saveAllVideos,
-  fetchVideoByID,
+  fetchVideoById,
   saveVideoToView,
   saveVideo,
   clearVideoDetails
@@ -33,8 +33,7 @@ function* saveVideoSaga({ payload: videoDetail }) {
   try {
     yield call(postVideo, videoDetail);
     yield put(clearVideoDetails());
-
-    history.push("/my-videos");
+    yield call(history.push, "/my-videos");
   } catch (error) {
     console.log(error);
     alert("An error happened. Please try again later");
@@ -44,6 +43,6 @@ function* saveVideoSaga({ payload: videoDetail }) {
 
 export default function* rootSaga() {
   yield takeLatest(fetchAllVideos, fetchAllVideosSaga);
-  yield takeLatest(fetchVideoByID, fetchVideoByIDSaga);
+  yield takeLatest(fetchVideoById, fetchVideoByIDSaga);
   yield takeLatest(saveVideo, saveVideoSaga);
 }

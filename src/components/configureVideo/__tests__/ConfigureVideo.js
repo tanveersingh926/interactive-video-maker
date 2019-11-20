@@ -118,7 +118,10 @@ describe("component should render with all basic sections", () => {
     });
     const saveBtn = getByText("Save Video");
     fireEvent.click(saveBtn);
-    expect(saveVideo).toHaveBeenLastCalledWith({ details: "here" });
+    expect(saveVideo).toHaveBeenLastCalledWith({
+      details: "here",
+      isEmailRequired: false
+    });
   });
 
   it("should render add interactions modal", () => {

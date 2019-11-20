@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import InputField from "../formFields/InputField";
 import { required } from "../../utilities/validation";
-import CheckFieldWrapper from "../formFields/CheckFieldWrapper";
+import CheckField from "../formFields/CheckField";
 import { Col, Row, Button } from "reactstrap";
 import { RESPONSE_ACTION } from "../../constants";
 
@@ -16,14 +16,14 @@ const QuesResponseForm = ({ index, name, values, fields }) => {
         validate={required}
         placeholder={`Enter response number ${index + 1}`}
       />
-      <CheckFieldWrapper
+      <CheckField
         type="checkbox"
         labelText="is this correct response?"
         fieldId={`correctResponseCheckbox${index + 1}`}
         name={`${name}.isCorrectResponse`}
         className="mb-2"
       />
-      <CheckFieldWrapper
+      <CheckField
         type="radio"
         labelText="Open Link in new Tab"
         fieldId={`openLinkId${index + 1}`}
@@ -45,7 +45,7 @@ const QuesResponseForm = ({ index, name, values, fields }) => {
 
       <Row>
         <Col md="9" sm="8">
-          <CheckFieldWrapper
+          <CheckField
             type="radio"
             labelText="Resume Video"
             fieldId={`resumeVideo${index + 1}`}

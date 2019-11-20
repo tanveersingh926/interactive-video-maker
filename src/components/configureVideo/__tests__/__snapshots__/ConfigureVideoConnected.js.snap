@@ -104,6 +104,23 @@ exports[`component should render with all basic sections should save snapshot of
               &lt;iframe src="http://localhost/video/youtubeId/embed" allowtransparency="true" frameborder="0" scrolling="no" width="640" height="390"&gt;&lt;/iframe&gt;
             </textarea>
           </div>
+          <div
+            class="form-check"
+          >
+            <input
+              class="form-check-input"
+              id="emailRequiredCheckbox"
+              name="isEmailRequired"
+              type="checkbox"
+              value="false"
+            />
+            <label
+              class="form-check-label"
+              for="emailRequiredCheckbox"
+            >
+              Email Required
+            </label>
+          </div>
           <button
             class="mt-4 mr-2 btn btn-primary"
             type="submit"

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import SharedVideoView from "./SharedVideoView";
-import { fetchVideoByID } from "../../store/actions";
+import { fetchVideoById } from "../../store/actions";
 // import { deleteInteraction, saveVideo } from "../../store/actions";
 
 const mapStateToProps = state => {
@@ -12,7 +12,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchVideoById: id => {
-      dispatch(fetchVideoByID(id));
+      dispatch(fetchVideoById(id));
     }
   };
 };

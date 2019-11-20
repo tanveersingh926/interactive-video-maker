@@ -9,7 +9,7 @@ import {
 import {
   saveVideo,
   fetchAllVideos,
-  fetchVideoByID,
+  fetchVideoById,
   fetchVideosCompleted,
   fetchVideosError,
   saveAllVideos,
@@ -26,7 +26,7 @@ export {
   clearVideoDetails,
   saveVideo,
   fetchAllVideos,
-  fetchVideoByID,
+  fetchVideoById,
   fetchVideosCompleted,
   fetchVideosError,
   saveAllVideos,

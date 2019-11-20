@@ -16,6 +16,7 @@ import InputField from "../formFields/InputField";
 import Video from "../videoPlayer/VideoConnected";
 import InteractionItem from "./InteractionItem";
 import { interactionPropTypes } from "../../utilities/commonPropTypes";
+import CheckField from "../formFields/CheckField";
 
 const ConfigureVideo = ({
   videoTitle,
@@ -38,82 +39,95 @@ const ConfigureVideo = ({
   const shareUrlValue = `${origin}/video/${idFromParam}/share`;
   const codeToEmbed = `<iframe src="${origin}/video/${idFromParam}/embed" allowtransparency="true" frameborder="0" scrolling="no" width="640" height="390"></iframe>`;
 
-  const onSubmit = () => {
-    saveVideo(videoDetails);
+  const onSubmit = values => {
+    saveVideo({ ...videoDetails, isEmailRequired: values.isEmailRequired });
   };
 
   const initialValues = {
     title: videoTitle,
     shortDescription: shortDescription,
     shareUrl: shareUrlValue,
-    embed: codeToEmbed
+    embed: codeToEmbed,
+    isEmailRequired: false
   };
 
   return (
     <div className="mt-4">
       <h1 className="mb-5">{videoTitle}</h1>
       <Row>
-        <Col md="6">
-          <Form
-            initialValues={initialValues}
-            onSubmit={onSubmit}
-            render={({ handleSubmit }) => (
-              <BootstrapForm onSubmit={handleSubmit}>
-                <Row form>
-                  <Col md={6}>
-                    <InputField
-                      name="title"
-                      labelText="Title"
-                      fieldId="videoTitle"
-                      placeholder="Enter Video Title"
-                      disabled
-                    />
-                  </Col>
-                  {shortDescription && (
+        <Form
+          initialValues={initialValues}
+          onSubmit={onSubmit}
+          render={({ handleSubmit, values }) => (
+            <>
+              <Col md="6">
+                <BootstrapForm onSubmit={handleSubmit}>
+                  <Row form>
                     <Col md={6}>
                       <InputField
-                        name="shortDescription"
-                        labelText="Short Description"
-                        fieldId="videoShortDescription"
-                        placeholder="Enter Short Description"
+                        name="title"
+                        labelText="Title"
+                        fieldId="videoTitle"
+                        placeholder="Enter Video Title"
                         disabled
                       />
                     </Col>
-                  )}
-                </Row>
+                    {shortDescription && (
+                      <Col md={6}>
+                        <InputField
+                          name="shortDescription"
+                          labelText="Short Description"
+                          fieldId="videoShortDescription"
+                          placeholder="Enter Short Description"
+                          disabled
+                        />
+                      </Col>
+                    )}
+                  </Row>
 
-                <InputField
-                  labelText="Share URL"
-                  fieldId="videoShareUrl"
-                  name="shareUrl"
-                  readOnly
-                />
-                <InputField
-                  type="textarea"
-                  labelText="Embed"
-                  fieldId="videoEmbed"
-                  name="embed"
-                />
-                {interactions.length >= 1 && (
-                  <Button color="primary" className="mt-4 mr-2" type="submit">
-                    Save Video
+                  <InputField
+                    labelText="Share URL"
+                    fieldId="videoShareUrl"
+                    name="shareUrl"
+                    readOnly
+                  />
+                  <InputField
+                    type="textarea"
+                    labelText="Embed"
+                    fieldId="videoEmbed"
+                    name="embed"
+                  />
+                  <CheckField
+                    type="checkbox"
+                    labelText="Email Required"
+                    fieldId="emailRequiredCheckbox"
+                    name="isEmailRequired"
+                  />
+                  {interactions.length >= 1 && (
+                    <Button color="primary" className="mt-4 mr-2" type="submit">
+                      Save Video
+                    </Button>
+                  )}
+                  <Button
+                    color="primary"
+                    className="mt-4"
+                    onClick={() => setModalIsOpen(true)}
+                    type="button"
+                  >
+                    Add Interaction
                   </Button>
-                )}
-                <Button
-                  color="primary"
-                  className="mt-4"
-                  onClick={() => setModalIsOpen(true)}
-                  type="button"
-                >
-                  Add Interaction
-                </Button>
-              </BootstrapForm>
-            )}
-          />
-        </Col>
-        <Col md="6">
-          <Video id={videoId} interactions={interactions} />
-        </Col>
+                </BootstrapForm>
+              </Col>
+              <Col md="6">
+                <Video
+                  id={videoId}
+                  interactions={interactions}
+                  isEmailRequired={values.isEmailRequired}
+                />
+              </Col>
+            </>
+          )}
+        />
       </Row>
       {interactions.length >= 1 && (
         <Row>

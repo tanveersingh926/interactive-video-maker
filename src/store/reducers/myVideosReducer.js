@@ -3,7 +3,7 @@ import {
   saveVideo,
   fetchAllVideos,
   saveAllVideos,
-  fetchVideoByID,
+  fetchVideoById,
   saveVideoToView,
   removeVideoToView
 } from "../actions/";
@@ -40,7 +40,7 @@ const myVideosReducer = handleActions(
       fetchingVideosCompleted: false,
       fetchingVideosError: false
     }),
-    [fetchVideoByID]: state => ({
+    [fetchVideoById]: state => ({
       ...state
     })
   },

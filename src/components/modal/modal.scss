@@ -9,7 +9,7 @@
   }
 
   &.modal-inline__not-standalone {
-    position: static;
+    position: relative;
     min-height: unset;
     width: 100%;
     margin: unset;

@@ -28,6 +28,7 @@ const AddInteractionModal = ({
     questionLabel,
     responses
   }) => {
+    console.log("reached here");
     const responsesToStore = responses.map(
       ({ response, isCorrectResponse, urlToOpen, responseAction }, index) => ({
         responseId: uuid(),
@@ -49,7 +50,7 @@ const AddInteractionModal = ({
     };
     addInteraction(interactionDetails);
   };
-
+  const closeModal = () => setModalIsOpen(false);
   const videoTotalDuration = convertToMinutesAndSeconds(videoDuration);
   const footerBtns = [
     {
@@ -72,7 +73,7 @@ const AddInteractionModal = ({
     },
     {
       text: "Cancel",
-      action: () => setModalIsOpen(false),
+      action: closeModal,
       isPrimary: false,
       type: "button"
     }
@@ -82,7 +83,7 @@ const AddInteractionModal = ({
     <Modal
       title="Add Interaction"
       isOpen={isOpen}
-      onClose={() => setModalIsOpen(false)}
+      onClose={closeModal}
       footerBtns={footerBtns}
       size="lg"
     >
