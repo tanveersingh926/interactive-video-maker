@@ -4,6 +4,7 @@ import InputField from "../formFields/InputField";
 import { required } from "../../utilities/validation";
 import CheckFieldWrapper from "../formFields/CheckFieldWrapper";
 import { Col, Row, Button } from "reactstrap";
+import { RESPONSE_ACTION } from "../../constants";
 
 const QuesResponseForm = ({ index, name, values, fields }) => {
   return (
@@ -16,6 +17,7 @@ const QuesResponseForm = ({ index, name, values, fields }) => {
         placeholder={`Enter response number ${index + 1}`}
       />
       <CheckFieldWrapper
+        type="checkbox"
         labelText="is this correct response?"
         fieldId={`correctResponseCheckbox${index + 1}`}
         name={`${name}.isCorrectResponse`}
@@ -27,11 +29,12 @@ const QuesResponseForm = ({ index, name, values, fields }) => {
         fieldId={`openLinkId${index + 1}`}
         name={`${name}.responseAction`}
         className="mb-2"
-        value="openLink"
+        value={RESPONSE_ACTION.OPEN_LINK}
       />
       {values.responses &&
         values.responses[index] &&
-        values.responses[index].responseAction === "openLink" && (
+        values.responses[index].responseAction ===
+          RESPONSE_ACTION.OPEN_LINK && (
           <InputField
             fieldId={`urlToOpen${index + 1}`}
             name={`${name}.urlToOpen`}
@@ -48,7 +51,7 @@ const QuesResponseForm = ({ index, name, values, fields }) => {
             fieldId={`resumeVideo${index + 1}`}
             name={`${name}.responseAction`}
             className="mb-2"
-            value="resumeVideo"
+            value={RESPONSE_ACTION.RESUME_VIDEO}
           />
         </Col>
         {index > 1 && (

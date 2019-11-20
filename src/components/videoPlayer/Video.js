@@ -1,9 +1,17 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { ListGroup, ListGroupItem } from "reactstrap";
+import {
+  ListGroup,
+  ListGroupItem,
+  Button,
+  Form as BootstrapForm
+} from "reactstrap";
 import ModalInline from "../modal/ModalInline";
 import { VIDEO_SOURCE_API } from "../../constants";
 import { interactionPropTypes } from "../../utilities/commonPropTypes";
+import InputField from "../formFields/InputField";
+import { Form } from "react-final-form";
+import { required } from "../../utilities/validation";
 
 class YouTubeVideo extends React.Component {
   static propTypes = {
@@ -11,7 +19,8 @@ class YouTubeVideo extends React.Component {
     removeVideoToView: PropTypes.func,
     updateVideoDuration: PropTypes.func,
     isStandalone: PropTypes.bool,
-    interactions: PropTypes.arrayOf(interactionPropTypes)
+    interactions: PropTypes.arrayOf(interactionPropTypes),
+    isEmailRequired: PropTypes.bool
   };
 
   constructor(props) {
@@ -19,11 +28,17 @@ class YouTubeVideo extends React.Component {
     this.state = {
       shouldPlayVideo: false,
       shouldDisplayQuestion: false,
-      questionToDisplay: {}
+      questionToDisplay: {},
+      isEmailModalDisplayed: false
     };
     this.onPlayerStateChange = this.onPlayerStateChange.bind(this);
+    this.onSubmitForm = this.onSubmitForm.bind(this);
     this.interactionsMap = new Map();
     this.intervalId = 1;
+    this.userDetails = {
+      email: "",
+      name: ""
+    };
   }
 
   componentDidMount = () => {
@@ -57,13 +72,20 @@ class YouTubeVideo extends React.Component {
         showinfo: 0,
         hd: 1,
         html5: 1,
-        enablejsapi: 1
+        enablejsapi: 1,
+        fs: 0
       },
       events: {
         onReady: this.onPlayerReady,
         onStateChange: this.onPlayerStateChange
       }
     });
+  };
+
+  onSubmitForm = values => {
+    this.userDetails = values;
+    this.player.playVideo();
+    this.setState({ isEmailModalDisplayed: false });
   };
 
   onPlayerStateChange(event) {
@@ -78,6 +100,15 @@ class YouTubeVideo extends React.Component {
             shouldDisplayQuestion: true,
             questionToDisplay: currentQues
           });
+        }
+
+        if (this.props.isEmailRequired) {
+          if (!this.userDetails.email) {
+            this.player.pauseVideo();
+            this.setState({ isEmailModalDisplayed: true });
+          } else {
+            this.setState({ isEmailModalDisplayed: false });
+          }
         }
       }, 1000);
     } else {
@@ -105,7 +136,11 @@ class YouTubeVideo extends React.Component {
 
   render = () => {
     const { id, isStandalone, interactions } = this.props;
-    const { shouldDisplayQuestion, questionToDisplay } = this.state;
+    const {
+      shouldDisplayQuestion,
+      questionToDisplay,
+      isEmailModalDisplayed
+    } = this.state;
     const interactionsMap = new Map();
     interactions.forEach(interaction => {
       interactionsMap.set(
@@ -136,6 +171,31 @@ class YouTubeVideo extends React.Component {
                   </ListGroupItem>
                 ))}
             </ListGroup>
+          </ModalInline>
+          <ModalInline isOpen={isEmailModalDisplayed}>
+            <h4>Email required</h4>
+            <Form
+              onSubmit={this.onSubmitForm}
+              render={({ handleSubmit }) => (
+                <BootstrapForm onSubmit={handleSubmit}>
+                  <InputField
+                    name="name"
+                    labelText="Name"
+                    fieldId="videoName"
+                    placeholder="Enter Name"
+                    validate={required}
+                  />
+                  <InputField
+                    name="email"
+                    labelText="Email"
+                    fieldId="videoEmail"
+                    placeholder="Enter Email"
+                    validate={required}
+                  />
+                  <Button type="submit">Submit</Button>
+                </BootstrapForm>
+              )}
+            />
           </ModalInline>
         </>
       </div>

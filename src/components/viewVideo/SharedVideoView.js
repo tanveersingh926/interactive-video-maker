@@ -11,7 +11,8 @@ const SharedVideoView = ({ video, fetchVideoById }) => {
     videoId = "",
     videoTitle = "",
     shortDescription = "",
-    interactions = []
+    interactions = [],
+    isEmailRequired
   } = video;
   useEffect(() => {
     fetchVideoById(idFromParam);
@@ -26,7 +27,12 @@ const SharedVideoView = ({ video, fetchVideoById }) => {
         </>
       )}
       {videoId && (
-        <Video id={videoId} isStandalone interactions={interactions} />
+        <Video
+          id={videoId}
+          isStandalone
+          interactions={interactions}
+          isEmailRequired={isEmailRequired}
+        />
       )}
     </div>
   );

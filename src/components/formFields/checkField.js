@@ -3,7 +3,7 @@ import { FormGroup, Label, Input } from "reactstrap";
 import PropTypes from "prop-types";
 
 const CheckField = ({
-  type = "checkbox",
+  type,
   fieldName,
   fieldId,
   labelText,
@@ -19,7 +19,7 @@ const CheckField = ({
 );
 
 CheckField.propTypes = {
-  type: PropTypes.string,
+  type: PropTypes.string.isRequired,
   labelText: PropTypes.string.isRequired,
   fieldId: PropTypes.string.isRequired,
   fieldName: PropTypes.string.isRequired

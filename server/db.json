@@ -2,7 +2,7 @@
   "videos": [
     {
       "id": "e70724fc-89ff-43f4-adcb-7397c165baed",
-      "isEmailRequired": false,
+      "isEmailRequired": true,
       "shortDescription": "Singer is Diljit Dosanjh feat Badshah",
       "videoId": "GVhmynWOPoM",
       "videoSource": "YOUTUBE",
@@ -203,6 +203,63 @@
             }
           ],
           "displayQuestionAtSecond": "2"
+        }
+      ]
+    },
+    {
+      "id": "dcc617c7-e4e1-48c2-87bd-295fd95082b7",
+      "isEmailRequired": false,
+      "shortDescription": "This description will come in my videos",
+      "videoId": "BleyZAUrUY0",
+      "videoSource": "YOUTUBE",
+      "videoTitle": "Bherde",
+      "videoUrl": "https://www.youtube.com/watch?v=BleyZAUrUY0",
+      "videoDuration": 208,
+      "interactions": [
+        {
+          "questionLabel": "Who is singer of this song",
+          "questionId": "4af07041-dc56-48c9-9f0e-86eb928163df",
+          "responses": [
+            {
+              "responseId": "49e7d041-ba45-42a5-b105-8787f3c14257",
+              "responseText": "Parmish Verma",
+              "isCorrect": true,
+              "noOfTimesResponseSelected": 0,
+              "shouldOpenUrl": false,
+              "resumeVideo": true
+            },
+            {
+              "responseId": "be3fefd9-72ee-4710-add1-2bbc1c6b2eda",
+              "responseText": "Prabu",
+              "urlToOpen": "http://google.com",
+              "noOfTimesResponseSelected": 0,
+              "shouldOpenUrl": true,
+              "resumeVideo": false
+            }
+          ],
+          "displayQuestionAtSecond": "5"
+        },
+        {
+          "questionLabel": "new interaction",
+          "questionId": "47bcec4d-8e92-469d-a634-ef8128824c9a",
+          "responses": [
+            {
+              "responseId": "5bc0a4a2-d8e3-4577-8091-27c0cebd36ee",
+              "responseText": "a",
+              "isCorrect": true,
+              "noOfTimesResponseSelected": 0,
+              "shouldOpenUrl": false,
+              "resumeVideo": true
+            },
+            {
+              "responseId": "97723258-5bb0-450a-8944-a3bfa8039838",
+              "responseText": "b",
+              "noOfTimesResponseSelected": 0,
+              "shouldOpenUrl": false,
+              "resumeVideo": true
+            }
+          ],
+          "displayQuestionAtSecond": "10"
         }
       ]
     }
