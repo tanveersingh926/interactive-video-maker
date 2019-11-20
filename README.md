@@ -69,8 +69,10 @@ The features I wish to implement in the future.
 3.  View Responses for User/Creator
 4.  Delete Video
 5.  Error Handling (currently it is partially done)
-6.  Confirmation on the video being saved
+6.  Confirmation of the video being saved
 7.  User login
 8.  Real NodeJS express API with mongoDB as database
+9.  Display Thumbnails of videos in myVideos page in each card
+10. Custom controls of the video player i.e. seekBar, volume and play button
 
 [View at ProductHunt](https://www.producthunt.com/posts/vanhackathon-interactive-video-maker-2)

@@ -13,7 +13,7 @@ import InputField from "../formFields/InputField";
 import { Form } from "react-final-form";
 import { required } from "../../utilities/validation";
 
-class YouTubeVideo extends React.Component {
+class Video extends React.Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
     removeVideoToView: PropTypes.func,
@@ -203,4 +203,4 @@ class YouTubeVideo extends React.Component {
   };
 }
 
-export default YouTubeVideo;
+export default Video;

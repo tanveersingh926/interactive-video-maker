@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import VideoIcon from "../../assets/img/video-icon.svg";
 import {
   Card,
   Button,
-  CardImg,
+  CardColumns,
   CardTitle,
   CardText,
   CardBody,
@@ -24,12 +23,11 @@ const MyVideos = ({ fetchAllVideos, videos }) => {
     fetchAllVideos();
   }, [fetchAllVideos]);
   return (
-    <Row className="mt-5">
+    <div className="mt-5">
       {videos.length >= 1 ? (
-        videos.map(({ id, videoTitle, shortDescription }) => (
-          <Col md="2" sm="3" xs="6" key={id}>
-            <Card>
-              <CardImg top width="100%" src={VideoIcon} alt="VIdeo Icon" />
+        <CardColumns>
+          {videos.map(({ id, videoTitle, shortDescription }) => (
+            <Card key={id}>
               <CardBody>
                 <CardTitle>{videoTitle}</CardTitle>
                 <CardText>{shortDescription}</CardText>
@@ -38,21 +36,23 @@ const MyVideos = ({ fetchAllVideos, videos }) => {
                   color="primary"
                   onClick={event => openSharedUrl(id)}
                 >
-                  View
+                  View Video
                 </Button>
               </CardBody>
             </Card>
-          </Col>
-        ))
+          ))}
+        </CardColumns>
       ) : (
-        <Col>
-          <h4>
-            You don't have any video.{" "}
-            <Link to="/add-new-video">Add new videos</Link>.
-          </h4>
-        </Col>
+        <Row>
+          <Col>
+            <h4>
+              You don't have any video.{" "}
+              <Link to="/add-new-video">Add new videos</Link>.
+            </h4>
+          </Col>
+        </Row>
       )}
-    </Row>
+    </div>
   );
 };
 

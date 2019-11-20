@@ -1,14 +1,26 @@
-import React from "react";
-import { render, cleanup, fireEvent } from "@testing-library/react";
-import MyVideosConnected from "../MyVideosConnected";
-import { Provider } from "react-redux";
-import store from "../../../store/configureStore";
-import { BrowserRouter } from "react-router-dom";
-import { saveAllVideos } from "../../../store/actions";
+import videoConfigurationReducer from "../videoConfigurationReducer";
+import {
+  addInteraction,
+  clearVideoDetails,
+  deleteInteraction,
+  updateVideoDuration
+} from "../../actions";
 
-const video = {
-  id: "e70724fc-89ff-43f4-adcb-7397c165baed",
+const initialState = {
+  id: "",
   isEmailRequired: false,
+  shortDescription: "",
+  videoId: "",
+  videoSource: "",
+  videoTitle: "",
+  videoUrl: "",
+  videoDuration: 0,
+  interactions: []
+};
+
+const defaultState = {
+  id: "e70723fc-89ff-43f4-adcb-7397c165baed",
+  isEmailRequired: true,
   shortDescription: "Singer is Diljit Dosanjh feat Badshah",
   videoId: "GVhmynWOPoM",
   videoSource: "YOUTUBE",
@@ -70,42 +82,36 @@ const video = {
     }
   ]
 };
-
-describe("component should render with all basic sections", () => {
-  const mockFn = jest.fn();
-  window.open = mockFn;
-  afterEach(cleanup);
-
-  const renderSubject = props => {
-    return render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <MyVideosConnected />
-        </BrowserRouter>
-      </Provider>
+describe("videoConfigurationReducer", () => {
+  it("should find and delete interaction", () => {
+    const videoConfigurationState = videoConfigurationReducer(
+      defaultState,
+      deleteInteraction({ videoId: "VideoID" })
     );
-  };
-  jest.setTimeout(30000);
-  window.alert = jest.fn();
-
-  it("renders without videos", async () => {
-    const { getByText } = renderSubject();
-    const addNewVideosLink = getByText("Add new videos");
-    expect(addNewVideosLink.tagName).toEqual("A");
+    expect(videoConfigurationState.interactions).toHaveLength(2);
   });
 
-  it("renders with videos and find video title and description", async () => {
-    store.dispatch(saveAllVideos([video]));
-    const { getByText } = renderSubject();
-    getByText("Proper Patola");
-    getByText("Singer is Diljit Dosanjh feat Badshah");
+  it("should add new interaction and length should be 3", () => {
+    const videoConfigurationState = videoConfigurationReducer(
+      defaultState,
+      addInteraction({ videoId: "VideoID" })
+    );
+    expect(videoConfigurationState.interactions).toHaveLength(3);
   });
 
-  it("renders with videos, open URL in new tab", async () => {
-    store.dispatch(saveAllVideos([video]));
-    const { getByText } = renderSubject();
-    const viewBtn = getByText("View Video");
-    fireEvent.click(viewBtn);
-    expect(mockFn).toHaveBeenCalled();
+  it("should clear video state", () => {
+    const videoConfigurationState = videoConfigurationReducer(
+      defaultState,
+      clearVideoDetails()
+    );
+    expect(videoConfigurationState).toEqual(initialState);
+  });
+
+  it("should update video duration", () => {
+    const videoConfigurationState = videoConfigurationReducer(
+      defaultState,
+      updateVideoDuration(23)
+    );
+    expect(videoConfigurationState.videoDuration).toEqual(23);
   });
 });

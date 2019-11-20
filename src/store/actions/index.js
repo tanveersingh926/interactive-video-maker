@@ -1,5 +1,4 @@
 import {
-  dummyAction,
   updateVideoDetails,
   updateVideoDuration,
   addInteraction,
@@ -18,7 +17,6 @@ import {
 } from "./myVideosActions";
 
 export {
-  dummyAction,
   updateVideoDetails,
   updateVideoDuration,
   addInteraction,

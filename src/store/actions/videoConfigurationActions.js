@@ -1,7 +1,5 @@
 import { createAction } from "redux-actions";
 
-export const dummyAction = createAction("dummy action");
-
 export const updateVideoDetails = createAction("Update Video Details");
 export const clearVideoDetails = createAction(
   "clear all data of the current video"
