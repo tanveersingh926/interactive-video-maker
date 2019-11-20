@@ -8,6 +8,7 @@ import {
 } from "reactstrap";
 import PropTypes from "prop-types";
 import { COLORS_CATEGORY } from "../../constants";
+import { footerBtnPropTypes } from "../../utilities/commonPropTypes";
 
 const Modal = props => {
   const {
@@ -56,14 +57,7 @@ Modal.propTypes = {
   size: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  footerBtns: PropTypes.arrayOf(
-    PropTypes.shape({
-      text: PropTypes.string.isRequired,
-      action: PropTypes.func.isRequired,
-      isPrimary: PropTypes.bool.isRequired,
-      type: PropTypes.string.isRequired
-    })
-  )
+  footerBtns: PropTypes.arrayOf(footerBtnPropTypes)
 };
 
 export default Modal;

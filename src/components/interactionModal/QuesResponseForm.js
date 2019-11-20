@@ -1,10 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 import InputField from "../formFields/InputField";
 import { required } from "../../utilities/validation";
 import CheckFieldWrapper from "../formFields/CheckFieldWrapper";
 import { Col, Row, Button } from "reactstrap";
 
-const QuesResponse = ({ index, name, values, fields }) => {
+const QuesResponseForm = ({ index, name, values, fields }) => {
   return (
     <>
       <InputField
@@ -69,4 +70,10 @@ const QuesResponse = ({ index, name, values, fields }) => {
   );
 };
 
-export default QuesResponse;
+QuesResponseForm.propTypes = {
+  index: PropTypes.number.isRequired,
+  values: PropTypes.any,
+  name: PropTypes.string.isRequired,
+  fields: PropTypes.any
+};
+export default QuesResponseForm;

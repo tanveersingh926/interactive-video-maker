@@ -11,6 +11,7 @@ import {
   Col,
   Row
 } from "reactstrap";
+import PropTypes from "prop-types";
 
 const MyVideos = ({ fetchAllVideos, videos }) => {
   const openSharedUrl = id => {
@@ -53,6 +54,17 @@ const MyVideos = ({ fetchAllVideos, videos }) => {
       )}
     </Row>
   );
+};
+
+MyVideos.propTypes = {
+  fetchAllVideos: PropTypes.func.isRequired,
+  videos: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      videoTitle: PropTypes.string.isRequired,
+      shortDescription: PropTypes.string.isRequired
+    })
+  )
 };
 
 export default MyVideos;

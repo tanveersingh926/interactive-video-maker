@@ -1,6 +1,5 @@
 import React from "react";
 import { FormGroup, Label, Input, FormText, FormFeedback } from "reactstrap";
-
 import { Field } from "react-final-form";
 import PropTypes from "prop-types";
 

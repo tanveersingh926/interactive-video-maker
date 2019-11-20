@@ -30,11 +30,6 @@ const MenuBar = () => {
               </ul>
             </div>
           </Col>
-          {/* <Col sm="4" className="d-flex justify-content-end">
-            <a className="video-preview--btn" href="#">
-              Preview Video
-            </a>
-          </Col> */}
         </Row>
       </Container>
     </div>

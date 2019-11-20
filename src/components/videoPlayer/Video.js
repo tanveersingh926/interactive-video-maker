@@ -3,10 +3,15 @@ import React from "react";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import ModalInline from "../modal/ModalInline";
 import { VIDEO_SOURCE_API } from "../../constants";
+import { interactionPropTypes } from "../../utilities/commonPropTypes";
 
 class YouTubeVideo extends React.Component {
   static propTypes = {
-    id: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired,
+    removeVideoToView: PropTypes.func,
+    updateVideoDuration: PropTypes.func,
+    isStandalone: PropTypes.bool,
+    interactions: PropTypes.arrayOf(interactionPropTypes)
   };
 
   constructor(props) {

@@ -1,9 +1,9 @@
 import React from "react";
 import { render, fireEvent, wait } from "@testing-library/react";
-import App from "../App";
+import App from "./App";
 import { Provider } from "react-redux";
-import store from "../../../store/configureStore";
-import { APP_TITLE } from "../../../constants";
+import store from "./store/configureStore";
+import { APP_TITLE } from "./constants";
 
 describe("component should render with all basic sections", () => {
   const renderSubject = props => {

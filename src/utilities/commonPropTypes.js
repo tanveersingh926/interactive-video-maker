@@ -15,3 +15,10 @@ export const interactionPropTypes = PropTypes.shape({
   responses: PropTypes.arrayOf(responsePropTypes),
   displayQuestionAtSecond: PropTypes.string.isRequired
 });
+
+export const footerBtnPropTypes = PropTypes.shape({
+  text: PropTypes.string.isRequired,
+  action: PropTypes.func.isRequired,
+  isPrimary: PropTypes.bool.isRequired,
+  type: PropTypes.string.isRequired
+});

@@ -4,7 +4,7 @@ import uuid from "uuid";
 import arrayMutators from "final-form-arrays";
 import { FieldArray } from "react-final-form-arrays";
 import { Form } from "react-final-form";
-
+import PropTypes from "prop-types";
 import InputGroupWrapper from "../formFields/InputGroupWrapper";
 import { required } from "../../utilities/validation";
 import { convertToMinutesAndSeconds } from "../../utilities/videoHelpers";
@@ -13,7 +13,7 @@ import QuesResponseForm from "./QuesResponseForm";
 import Modal from "../modal/Modal";
 import { RESPONSE_ACTION } from "../../constants";
 
-const InteractionModal = ({
+const AddInteractionModal = ({
   videoDuration,
   isOpen,
   setModalIsOpen,
@@ -166,4 +166,11 @@ const InteractionModal = ({
   );
 };
 
-export default InteractionModal;
+AddInteractionModal.propTypes = {
+  videoDuration: PropTypes.number,
+  isOpen: PropTypes.bool.isRequired,
+  setModalIsOpen: PropTypes.func.isRequired,
+  addInteraction: PropTypes.func.isRequired
+};
+
+export default AddInteractionModal;
