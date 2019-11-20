@@ -8,7 +8,7 @@ import { Form } from "react-final-form";
 import InputGroupWrapper from "../formFields/InputGroupWrapper";
 import { required } from "../../utilities/validation";
 import { convertToMinutesAndSeconds } from "../../utilities/videoHelpers";
-import CustomField from "../formFields/InputFieldWrapper";
+import InputField from "../formFields/InputField";
 import QuesResponseForm from "./QuesResponseForm";
 import Modal from "../modal/Modal";
 import { RESPONSE_ACTION } from "../../constants";
@@ -121,7 +121,7 @@ const InteractionModal = ({
                       </Col>
                     </Row>
                     <h3>Question</h3>
-                    <CustomField
+                    <InputField
                       name="questionLabel"
                       validate={required}
                       fieldId="videoInteractionQue"

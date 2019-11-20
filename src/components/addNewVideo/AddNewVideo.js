@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Col, Row, Button, Form as BootstrapForm } from "reactstrap";
 import uuid from "uuid";
 import { useHistory } from "react-router-dom";
@@ -9,7 +10,7 @@ import {
   composeValidators
 } from "../../utilities/validation";
 import { Form } from "react-final-form";
-import CustomField from "../formFields/InputFieldWrapper";
+import InputField from "../formFields/InputField";
 
 const AddNewVideo = ({ updateVideoDetails }) => {
   let videoId = null;
@@ -50,7 +51,7 @@ const AddNewVideo = ({ updateVideoDetails }) => {
               <BootstrapForm onSubmit={handleSubmit}>
                 <Row form>
                   <Col md={6}>
-                    <CustomField
+                    <InputField
                       name="title"
                       validate={required}
                       labelText="Title"
@@ -59,7 +60,7 @@ const AddNewVideo = ({ updateVideoDetails }) => {
                     />
                   </Col>
                   <Col md={6}>
-                    <CustomField
+                    <InputField
                       name="shortDescription"
                       labelText="Short Description"
                       fieldId="videoShortDescription"
@@ -67,7 +68,7 @@ const AddNewVideo = ({ updateVideoDetails }) => {
                     />
                   </Col>
                 </Row>
-                <CustomField
+                <InputField
                   name="youtubeVideoUrl"
                   validate={composeValidators(required, isUrlValid)}
                   fieldText={[
@@ -89,6 +90,10 @@ const AddNewVideo = ({ updateVideoDetails }) => {
       </Row>
     </div>
   );
+};
+
+AddNewVideo.propTypes = {
+  updateVideoDetails: PropTypes.func.isRequired
 };
 
 export default AddNewVideo;

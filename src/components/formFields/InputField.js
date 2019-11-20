@@ -2,8 +2,9 @@ import React from "react";
 import { FormGroup, Label, Input, FormText, FormFeedback } from "reactstrap";
 
 import { Field } from "react-final-form";
+import PropTypes from "prop-types";
 
-const CustomField = ({
+const InputField = ({
   name,
   validate,
   labelText,
@@ -63,4 +64,16 @@ const CustomField = ({
   );
 };
 
-export default CustomField;
+InputField.propTypes = {
+  fieldText: PropTypes.arrayOf(PropTypes.string),
+  type: PropTypes.string,
+  labelText: PropTypes.string,
+  fieldId: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
+  plaintext: PropTypes.bool,
+  readOnly: PropTypes.bool,
+  validate: PropTypes.func
+};
+
+export default InputField;

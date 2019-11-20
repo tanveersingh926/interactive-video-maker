@@ -1,5 +1,5 @@
 import React from "react";
-import CustomField from "../formFields/InputFieldWrapper";
+import InputField from "../formFields/InputField";
 import { required } from "../../utilities/validation";
 import CheckFieldWrapper from "../formFields/CheckFieldWrapper";
 import { Col, Row, Button } from "reactstrap";
@@ -7,7 +7,7 @@ import { Col, Row, Button } from "reactstrap";
 const QuesResponse = ({ index, name, values, fields }) => {
   return (
     <>
-      <CustomField
+      <InputField
         labelText={`Response ${index + 1}`}
         fieldId={`videoInteractionRes${index + 1}`}
         name={`${name}.response`}
@@ -31,7 +31,7 @@ const QuesResponse = ({ index, name, values, fields }) => {
       {values.responses &&
         values.responses[index] &&
         values.responses[index].responseAction === "openLink" && (
-          <CustomField
+          <InputField
             fieldId={`urlToOpen${index + 1}`}
             name={`${name}.urlToOpen`}
             validate={required}

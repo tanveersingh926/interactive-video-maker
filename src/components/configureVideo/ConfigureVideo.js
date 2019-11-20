@@ -9,11 +9,13 @@ import {
 } from "reactstrap";
 import { useParams, useHistory } from "react-router-dom";
 import { Form } from "react-final-form";
+import PropTypes from "prop-types";
 
 import AddInteractionModal from "../interactionModal/AddInteractionModalConnected";
-import CustomField from "../formFields/InputFieldWrapper";
+import InputField from "../formFields/InputField";
 import Video from "../videoPlayer/VideoConnected";
 import InteractionItem from "./InteractionItem";
+import { interactionPropTypes } from "../../utilities/commonPropTypes";
 
 const ConfigureVideo = ({
   videoTitle,
@@ -59,7 +61,7 @@ const ConfigureVideo = ({
               <BootstrapForm onSubmit={handleSubmit}>
                 <Row form>
                   <Col md={6}>
-                    <CustomField
+                    <InputField
                       name="title"
                       labelText="Title"
                       fieldId="videoTitle"
@@ -69,7 +71,7 @@ const ConfigureVideo = ({
                   </Col>
                   {shortDescription && (
                     <Col md={6}>
-                      <CustomField
+                      <InputField
                         name="shortDescription"
                         labelText="Short Description"
                         fieldId="videoShortDescription"
@@ -80,13 +82,13 @@ const ConfigureVideo = ({
                   )}
                 </Row>
 
-                <CustomField
+                <InputField
                   labelText="Share URL"
                   fieldId="videoShareUrl"
                   name="shareUrl"
                   readOnly
                 />
-                <CustomField
+                <InputField
                   type="textarea"
                   labelText="Embed"
                   fieldId="videoEmbed"
@@ -141,6 +143,16 @@ const ConfigureVideo = ({
       <AddInteractionModal isOpen={isOpen} setModalIsOpen={setModalIsOpen} />
     </div>
   );
+};
+
+ConfigureVideo.propTypes = {
+  videoTitle: PropTypes.string.isRequired,
+  videoId: PropTypes.string.isRequired,
+  shortDescription: PropTypes.string.isRequired,
+  interactions: PropTypes.arrayOf(interactionPropTypes),
+  videoDetails: PropTypes.any.isRequired,
+  deleteInteraction: PropTypes.func.isRequired,
+  saveVideo: PropTypes.func.isRequired
 };
 
 export default ConfigureVideo;

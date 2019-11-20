@@ -1,5 +1,6 @@
 import React from "react";
 import { convertToMinutesAndSeconds } from "../../utilities/videoHelpers";
+import PropTypes from "prop-types";
 
 const InteractionItem = ({ deleteItem, ques, quesNumber, interactionTime }) => {
   const interactionTimeInMinutesAndSeconds = convertToMinutesAndSeconds(
@@ -22,6 +23,13 @@ const InteractionItem = ({ deleteItem, ques, quesNumber, interactionTime }) => {
       </span>
     </>
   );
+};
+
+InteractionItem.propTypes = {
+  quesNumber: PropTypes.number.isRequired,
+  ques: PropTypes.string.isRequired,
+  interactionTime: PropTypes.string.isRequired,
+  deleteItem: PropTypes.func.isRequired
 };
 
 export default InteractionItem;
