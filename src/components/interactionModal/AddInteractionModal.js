@@ -28,7 +28,6 @@ const AddInteractionModal = ({
     questionLabel,
     responses
   }) => {
-    console.log("reached here");
     const responsesToStore = responses.map(
       ({ response, isCorrectResponse, urlToOpen, responseAction }, index) => ({
         responseId: uuid(),

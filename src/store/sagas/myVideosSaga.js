@@ -32,8 +32,8 @@ function* fetchVideoByIDSaga({ payload: idFromParam }) {
 function* saveVideoSaga({ payload: videoDetail }) {
   try {
     yield call(postVideo, videoDetail);
-    yield put(clearVideoDetails());
     yield call(history.push, "/my-videos");
+    yield put(clearVideoDetails());
   } catch (error) {
     console.log(error);
     alert("An error happened. Please try again later");
