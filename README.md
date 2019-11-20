@@ -22,6 +22,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### `npm test`
 
+#### Test case result
+
+[![Test case results](https://i.ibb.co/Dzw2sn5/test-cases-result.png)](https://i.ibb.co/Dzw2sn5/test-cases-result.png)
+
 This command will start running test cases and will produce result. I have used `@testing-library/react` to write test cases. Various strategies have been used by me for instance I have mocked redux store with `redux-mock-store` package.
 
 If there was some more time I would have completed 90% of code coverage, currently code coverage is 80% and above.
@@ -64,15 +68,16 @@ Mock Api's are created using `json-server` and data is being stored in `server/d
 
 The features I wish to implement in the future.
 
-1.  Edit Interaction
-2.  Remove window alerts and use proper Modal with reusable mechanism
-3.  View Responses for User/Creator
-4.  Delete Video
-5.  Error Handling (currently it is partially done)
-6.  Confirmation of the video being saved
-7.  User login
-8.  Real NodeJS express API with mongoDB as database
-9.  Display Thumbnails of videos in myVideos page in each card
+1. Edit Interaction
+2. Remove window alerts and use proper Modal with reusable mechanism
+3. View Responses for User/Creator
+4. Delete Video
+5. Error Handling (currently it is partially done)
+6. Confirmation of the video being saved
+7. User login
+8. Real NodeJS express API with mongoDB as database
+9. Display Thumbnails of videos in myideos page in each card
 10. Custom controls of the video player i.e. seekBar, volume and play button
+11. Make it progressive web app at least for myVideos page
 
 [View at ProductHunt](https://www.producthunt.com/posts/vanhackathon-interactive-video-maker-2)
